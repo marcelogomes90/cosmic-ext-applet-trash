@@ -6,7 +6,6 @@ use std::time::Duration;
 const TRASH_URI: &str = "trash:///";
 const FILE_MANAGER: &str = "cosmic-files";
 
-/// How long a launched file manager has to fall over before we stop believing it worked.
 const SETTLE: Duration = Duration::from_millis(1500);
 
 pub async fn open() {
@@ -48,9 +47,6 @@ pub async fn open() {
     tracing::warn!("nothing could open the trash");
 }
 
-/// Inside a sandbox every attempt is made on the host: the file manager does not exist in here,
-/// and the portal answers an unregistered URI scheme with an application chooser and then reports
-/// success, which a fallback chain cannot see through.
 enum Launcher {
     Direct,
     Host { display: Option<String> },
@@ -79,8 +75,6 @@ impl Launcher {
         let mut command = match self {
             Self::Direct => tokio::process::Command::new(program),
             Self::Host { display } => {
-                // The host spawns with no session environment, so a window would have nowhere to
-                // open.
                 let mut command = tokio::process::Command::new("flatpak-spawn");
                 command.arg("--host");
                 if let Some(display) = display {
@@ -114,8 +108,6 @@ impl Launcher {
         }
     }
 
-    /// Start something that is expected to keep running. Staying up past [`SETTLE`] counts as
-    /// success; falling over before that does not, so the chain can carry on.
     async fn launch(&self, program: &str, args: &[&OsStr]) -> bool {
         let mut handler = match self.command(program).args(args).spawn() {
             Ok(handler) => handler,
@@ -140,7 +132,6 @@ impl Launcher {
         }
     }
 
-    /// Run something that is expected to hand off and exit, and report whether it did.
     async fn handled(&self, program: &str, args: &[&OsStr]) -> bool {
         let mut handler = match self.command(program).args(args).spawn() {
             Ok(handler) => handler,

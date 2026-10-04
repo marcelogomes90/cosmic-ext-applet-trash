@@ -141,17 +141,31 @@ The popup keeps `Open Trash` as its first row even though a left click already d
 menu that offers only the destructive half of what the applet does reads as if opening were
 unavailable.
 
-## The question is a dialog, inside the popup
+`Empty Trash` dims itself when there is nothing to empty. `Button::AppletMenu` overwrites its label
+and icon colour with the surface's ordinary ink whether or not the button is disabled — the
+`on_disabled` colour that `Catalog::disabled` works out is discarded in that arm — so a disabled
+applet-menu row looks exactly like an available one unless it dims its own label.
 
-COSMIC Files asks this same question with `widget::dialog()`, and the two should read as one
-question. It exposes no D-Bus interface and no command-line flag to raise its own dialog, so the
-question has to be asked here — but with the same widget, so the title, the body and the button row
-have the same shape and typography.
+The tooltip naming the applet is wrapped on **only** when `panel_type == Dock`. The dock names every
+icon it holds on hover and an applet gets none of that for free; a panel names nothing, so a tooltip
+there would be noise.
 
-`Dialog` is an ordinary widget, not a surface: a container with `Container::Dialog`, `space_m`
-padding, a `title3` heading and a right-aligned button row. So it stands **in place of**
-`style::surface` rather than inside it — it paints its own card, and two stacked backgrounds would
-lose the user's frosted-panel setting.
+## The question is the popup's other face
+
+COSMIC Files asks this same question, and the two should read as one question. It exposes no D-Bus
+interface and no command-line flag to raise its own dialog, so the question has to be asked here.
+
+`widget::dialog()` is the obvious way to ask it and is the wrong one. It paints its own card on the
+**primary** layer, with a border and a drop shadow of its own; the popup's `style::surface` is the
+**background** layer. Side by side the two read as different windows, and the card covers the
+frosted background the panel gives the popup — switching to the question looked like switching
+applications. Stacking it *inside* `style::surface` is worse still: two backgrounds, and the frosted
+setting silently stops working.
+
+So the popup has one surface and two faces. `question()` reproduces the dialog's *contents* —
+`title3` heading, `space_xxs` gap, body text, a right-aligned `suggested`/`standard` pair, the
+`space_l` and `space_m` spacing scale — and nothing of its chrome. What changes between the menu and
+the question is what is inside the popup, never what the popup is made of.
 
 **It is not a surface of its own, and that was tried.** An overlay layer surface with
 `KeyboardInteractivity::Exclusive` is the other way to ask, and it is how `cosmic-applet-power` once

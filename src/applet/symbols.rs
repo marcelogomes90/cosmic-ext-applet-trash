@@ -2,8 +2,6 @@ use cosmic::widget;
 
 use crate::trash::Status;
 
-/// The same two-by-two matrix COSMIC Files uses: a symbolic glyph for the panel, the icon theme's
-/// own colours for the dock, and a full bin for each when there is something in it.
 pub fn panel(status: Status, symbolic: bool) -> widget::icon::Handle {
     let name = match (symbolic, status) {
         (true, Status::Occupied) => "user-trash-full-symbolic",

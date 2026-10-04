@@ -241,7 +241,6 @@ impl Application for Trash {
         let button = widget::mouse_area(self.panel_button().on_press(Message::OpenTrash))
             .on_right_press(Message::TogglePopup);
 
-        // Only the dock names the icons it holds on hover; on a panel a tooltip would be noise.
         let button: Element<'_, Message> = if self.core.applet.panel_type == PanelType::Dock {
             self.core
                 .applet

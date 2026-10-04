@@ -10,18 +10,15 @@ use crate::fl;
 const GAP_TIGHT: u16 = 4;
 
 pub fn popup(app: &Trash) -> Element<'_, Message> {
-    // The dialog paints its own card, so it stands in for the popup surface rather than sitting on
-    // top of one — two stacked backgrounds would lose the user's frosted-panel setting.
     let body: Element<'_, Message> = if app.asking() {
         question()
     } else {
-        widget::container(menu(app))
-            .padding([GAP_TIGHT, 0])
-            .style(style::surface)
-            .into()
+        widget::container(menu(app)).padding([GAP_TIGHT, 0]).into()
     };
 
-    widget::autosize::autosize(body, popup::SURFACE_ID.clone())
+    let surface = widget::container(body).style(style::surface);
+
+    widget::autosize::autosize(surface, popup::SURFACE_ID.clone())
         .limits(popup::surface_limits())
         .into()
 }
@@ -39,8 +36,6 @@ fn menu(app: &Trash) -> Element<'_, Message> {
         .into()
 }
 
-/// `Button::AppletMenu` paints its label with the surface's ordinary ink whether or not the button
-/// is disabled, so a row with nothing to do has to dim itself.
 fn label(text: String, enabled: bool) -> Element<'static, Message> {
     let mut text = widget::text::body(text)
         .ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)))
@@ -59,19 +54,32 @@ fn divider<'a>() -> Element<'a, Message> {
         .into()
 }
 
-/// COSMIC Files has an Empty Trash dialog, but exposes neither a D-Bus interface nor a
-/// command-line flag to raise it, so the question is asked here — same widget, same pair of
-/// buttons, so the two read as one question. The primary action is `suggested`, not
-/// `destructive`: that is what COSMIC Files uses, and it follows the desktop's accent colour
-/// instead of pinning a red of its own.
 fn question<'a>() -> Element<'a, Message> {
-    widget::dialog()
-        .title(fl!("empty-trash-title"))
-        .body(fl!("empty-trash-warning"))
-        .primary_action(widget::button::suggested(fl!("empty-trash")).on_press(Message::Empty))
-        .secondary_action(
-            widget::button::standard(fl!("action-cancel")).on_press(Message::ConfirmEmpty(false)),
-        )
-        .width(Length::Fill)
-        .into()
+    let spacing = cosmic::theme::spacing();
+
+    let words = widget::column::with_children(vec![
+        widget::text::title3(fl!("empty-trash-title")).into(),
+        widget::space::vertical()
+            .height(Length::Fixed(f32::from(spacing.space_xxs)))
+            .into(),
+        widget::text::body(fl!("empty-trash-warning")).into(),
+    ]);
+
+    let answers = widget::row::with_children(vec![
+        widget::space::horizontal().into(),
+        widget::button::standard(fl!("action-cancel"))
+            .on_press(Message::ConfirmEmpty(false))
+            .into(),
+        widget::button::suggested(fl!("empty-trash"))
+            .on_press(Message::Empty)
+            .into(),
+    ])
+    .spacing(spacing.space_xxs);
+
+    widget::container(
+        widget::column::with_children(vec![words.into(), answers.into()]).spacing(spacing.space_l),
+    )
+    .padding(spacing.space_m)
+    .width(Length::Fill)
+    .into()
 }
