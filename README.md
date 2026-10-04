@@ -48,7 +48,8 @@ just install-user      # ~/.local, no root
 sudo just install      # /usr
 ```
 
-Then add **Trash** in Settings → Desktop → Dock → Applets.
+Then add **Trash** in Settings → Desktop → Dock → Applets. It works on a panel too — the dock is
+simply where a full-colour application icon belongs.
 
 ## Developing
 
