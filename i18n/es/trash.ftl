@@ -1,9 +1,8 @@
 app-title = Papelera
 
-open-trash = Abrir la papelera
-empty-trash = Vaciar la papelera
+open-trash = Abrir papelera
+empty-trash = Vaciar papelera
 
-empty-trash-title = ¿Vaciar la papelera?
+empty-trash-title = ¿Vaciar papelera?
 empty-trash-warning = Los elementos se eliminarán permanentemente.
 action-cancel = Cancelar
-action-empty = Vaciar

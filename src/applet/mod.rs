@@ -7,10 +7,6 @@ pub mod view;
 
 use cosmic::app::{Core, Task};
 use cosmic::applet::PanelType;
-use cosmic::iced::platform_specific::runtime::wayland::layer_surface::SctkLayerSurfaceSettings;
-use cosmic::iced::platform_specific::shell::commands::layer_surface::{
-    KeyboardInteractivity, Layer, destroy_layer_surface,
-};
 use cosmic::iced::platform_specific::shell::commands::popup::destroy_popup;
 use cosmic::iced::{Length, Subscription, window};
 use cosmic::{Application, Element, widget};
@@ -43,16 +39,7 @@ impl PopupState {
 enum Confirm {
     #[default]
     Idle,
-    Asking(window::Id),
-}
-
-impl Confirm {
-    fn id(self) -> Option<window::Id> {
-        match self {
-            Self::Idle => None,
-            Self::Asking(id) => Some(id),
-        }
-    }
+    Asking,
 }
 
 pub struct Trash {
@@ -65,6 +52,10 @@ pub struct Trash {
 impl Trash {
     pub fn status(&self) -> Status {
         self.status
+    }
+
+    pub fn asking(&self) -> bool {
+        self.confirm == Confirm::Asking
     }
 
     fn open_popup(&mut self) -> Task<Message> {
@@ -98,44 +89,6 @@ impl Trash {
                 destroy_popup(id)
             }
             PopupState::Closed | PopupState::Open { closing: true, .. } => Task::none(),
-        }
-    }
-
-    /// The question gets a surface of its own rather than a page inside the popup, so that looking
-    /// away cannot dismiss a question about deleting everything.
-    fn open_dialog(&mut self) -> Task<Message> {
-        if self.confirm != Confirm::Idle {
-            return Task::none();
-        }
-
-        let id = window::Id::unique();
-        self.confirm = Confirm::Asking(id);
-
-        cosmic::surface::surface_task(cosmic::surface::action::app_layer_shell::<Self>(
-            |_| cosmic::surface::action::LiveSettings::default(),
-            move |_| SctkLayerSurfaceSettings {
-                id,
-                layer: Layer::Overlay,
-                keyboard_interactivity: KeyboardInteractivity::Exclusive,
-                namespace: format!("{APP_ID}.confirm"),
-                size: Some((
-                    Some(u32::from(popup::DIALOG_WIDTH)),
-                    Some(u32::from(popup::DIALOG_HEIGHT)),
-                )),
-                size_limits: popup::dialog_limits(),
-                exclusive_zone: -1,
-                ..SctkLayerSurfaceSettings::default()
-            },
-            Some(Box::new(|_: &Self| {
-                view::confirmation().map(cosmic::Action::App)
-            })),
-        ))
-    }
-
-    fn close_dialog(&mut self) -> Task<Message> {
-        match std::mem::replace(&mut self.confirm, Confirm::Idle) {
-            Confirm::Asking(id) => destroy_layer_surface(id),
-            Confirm::Idle => Task::none(),
         }
     }
 
@@ -184,15 +137,6 @@ fn symbolic_panel(panel: &PanelType) -> bool {
 fn reconcile_surface_closed(id: window::Id, state: &mut PopupState) -> bool {
     if state.id() == Some(id) {
         *state = PopupState::Closed;
-        return true;
-    }
-
-    false
-}
-
-fn reconcile_dialog_closed(id: window::Id, state: &mut Confirm) -> bool {
-    if state.id() == Some(id) {
-        *state = Confirm::Idle;
         return true;
     }
 
@@ -250,22 +194,16 @@ impl Application for Trash {
     }
 
     fn subscription(&self) -> Subscription<Message> {
-        let mut sources = vec![subscription::status()];
-
-        // The dialog holds the keyboard, so it owes the user a way out of it.
-        if self.confirm != Confirm::Idle {
-            sources.push(subscription::dismissal());
-        }
-
-        Subscription::batch(sources)
+        subscription::status()
     }
 
     fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::TogglePopup => self.toggle_popup(),
             Message::SurfaceClosed(id) => {
-                reconcile_surface_closed(id, &mut self.popup);
-                reconcile_dialog_closed(id, &mut self.confirm);
+                if reconcile_surface_closed(id, &mut self.popup) {
+                    self.confirm = Confirm::Idle;
+                }
                 Task::none()
             }
             Message::Surface(action) => cosmic::task::message(cosmic::Action::Surface(action)),
@@ -283,9 +221,18 @@ impl Application for Trash {
                     Message::Relayout
                 }),
             ]),
-            Message::ConfirmEmpty(true) => Task::batch([self.close_popup(), self.open_dialog()]),
-            Message::ConfirmEmpty(false) => self.close_dialog(),
-            Message::Empty => Task::batch([self.close_dialog(), empty_trash()]),
+            Message::ConfirmEmpty(asking) => {
+                self.confirm = if asking {
+                    Confirm::Asking
+                } else {
+                    Confirm::Idle
+                };
+                cosmic::task::message(Message::Relayout)
+            }
+            Message::Empty => {
+                self.confirm = Confirm::Idle;
+                Task::batch([self.close_popup(), empty_trash()])
+            }
             Message::Relayout => Task::none(),
         }
     }
@@ -319,15 +266,11 @@ impl Application for Trash {
     }
 
     fn view_window(&self, id: window::Id) -> Element<'_, Message> {
-        if self.popup.id() == Some(id) {
-            return view::popup(self);
+        if self.popup.id() != Some(id) {
+            return widget::text::body("").into();
         }
 
-        if self.confirm.id() == Some(id) {
-            return view::confirmation();
-        }
-
-        widget::text::body("").into()
+        view::popup(self)
     }
 }
 
@@ -368,51 +311,6 @@ mod tests {
             state,
             PopupState::Open { id, closing: false },
             "the popup stays open"
-        );
-    }
-
-    #[test]
-    fn closing_the_dialog_surface_leaves_no_question_behind() {
-        let id = window::Id::unique();
-        let mut state = Confirm::Asking(id);
-
-        assert!(
-            reconcile_dialog_closed(id, &mut state),
-            "the dialog's own close must be recognised"
-        );
-        assert_eq!(
-            state,
-            Confirm::Idle,
-            "a compositor-closed dialog must not leave the applet believing it is still asking"
-        );
-    }
-
-    #[test]
-    fn the_popup_and_the_dialog_do_not_answer_for_each_other() {
-        let popup_id = window::Id::unique();
-        let dialog_id = window::Id::unique();
-
-        let mut popup = PopupState::Open {
-            id: popup_id,
-            closing: false,
-        };
-        let mut confirm = Confirm::Asking(dialog_id);
-
-        assert!(
-            !reconcile_dialog_closed(popup_id, &mut confirm),
-            "the popup closing says nothing about the dialog"
-        );
-        assert!(
-            !reconcile_surface_closed(dialog_id, &mut popup),
-            "the dialog closing says nothing about the popup"
-        );
-        assert_eq!(confirm, Confirm::Asking(dialog_id));
-        assert_eq!(
-            popup,
-            PopupState::Open {
-                id: popup_id,
-                closing: false
-            }
         );
     }
 

@@ -10,11 +10,18 @@ use crate::fl;
 const GAP_TIGHT: u16 = 4;
 
 pub fn popup(app: &Trash) -> Element<'_, Message> {
-    let surface = widget::container(menu(app))
-        .padding([GAP_TIGHT, 0])
-        .style(style::surface);
+    // The dialog paints its own card, so it stands in for the popup surface rather than sitting on
+    // top of one — two stacked backgrounds would lose the user's frosted-panel setting.
+    let body: Element<'_, Message> = if app.asking() {
+        question()
+    } else {
+        widget::container(menu(app))
+            .padding([GAP_TIGHT, 0])
+            .style(style::surface)
+            .into()
+    };
 
-    widget::autosize::autosize(surface, popup::SURFACE_ID.clone())
+    widget::autosize::autosize(body, popup::SURFACE_ID.clone())
         .limits(popup::surface_limits())
         .into()
 }
@@ -52,21 +59,17 @@ fn divider<'a>() -> Element<'a, Message> {
         .into()
 }
 
-/// The confirmation is its own surface, not a page inside the popup: a question about deleting
-/// everything should not be something the user can dismiss by looking away.
-pub fn confirmation<'a>() -> Element<'a, Message> {
-    widget::container(
-        widget::dialog()
-            .title(fl!("empty-trash-title"))
-            .body(fl!("empty-trash-warning"))
-            .primary_action(
-                widget::button::destructive(fl!("action-empty")).on_press(Message::Empty),
-            )
-            .secondary_action(
-                widget::button::standard(fl!("action-cancel"))
-                    .on_press(Message::ConfirmEmpty(false)),
-            ),
-    )
-    .center(Length::Fill)
-    .into()
+/// COSMIC Files has an Empty Trash dialog, but exposes neither a D-Bus interface nor a
+/// command-line flag to raise it, so the question is asked here — in its own widget, so the two
+/// read as the same question.
+fn question<'a>() -> Element<'a, Message> {
+    widget::dialog()
+        .title(fl!("empty-trash-title"))
+        .body(fl!("empty-trash-warning"))
+        .primary_action(widget::button::destructive(fl!("empty-trash")).on_press(Message::Empty))
+        .secondary_action(
+            widget::button::standard(fl!("action-cancel")).on_press(Message::ConfirmEmpty(false)),
+        )
+        .width(Length::Fill)
+        .into()
 }

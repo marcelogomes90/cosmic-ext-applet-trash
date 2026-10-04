@@ -1,9 +1,8 @@
 app-title = Lixeira
 
-open-trash = Abrir a lixeira
-empty-trash = Esvaziar a lixeira
+open-trash = Abrir lixeira
+empty-trash = Esvaziar lixo
 
-empty-trash-title = Esvaziar a lixeira?
+empty-trash-title = Esvaziar o lixo?
 empty-trash-warning = Os itens serão excluídos permanentemente.
 action-cancel = Cancelar
-action-empty = Esvaziar

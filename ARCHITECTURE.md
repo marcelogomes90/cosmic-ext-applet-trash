@@ -141,24 +141,34 @@ The popup keeps `Open Trash` as its first row even though a left click already d
 menu that offers only the destructive half of what the applet does reads as if opening were
 unavailable.
 
-## The question gets a surface of its own
+## The question is a dialog, inside the popup
 
-Emptying the trash cannot be undone, so the question must survive the user looking away. Inside the
-popup it would not: a popup is dismissed by any click outside it, and a dismissed question is a
-question the user never answered.
+COSMIC Files asks this same question with `widget::dialog()`, and the two should read as one
+question. It exposes no D-Bus interface and no command-line flag to raise its own dialog, so the
+question has to be asked here — but with the same widget, so the title, the body and the button row
+have the same shape and typography.
 
-So `open_dialog` creates an **overlay layer surface** with
-`KeyboardInteractivity::Exclusive`, a fixed size and bounded `size_limits`, holding a
-`widget::dialog()`. It is the shape `cosmic-applet-power` used for the same kind of question. The
-popup is closed first — a grabbing popup and a keyboard-exclusive layer surface should not be up at
-once.
+`Dialog` is an ordinary widget, not a surface: a container with `Container::Dialog`, `space_m`
+padding, a `title3` heading and a right-aligned button row. So it stands **in place of**
+`style::surface` rather than inside it — it paints its own card, and two stacked backgrounds would
+lose the user's frosted-panel setting.
 
-Holding the keyboard means owing the user a way out of it, so `subscription::dismissal` listens for
-Escape, and only while the dialog is open.
+**It is not a surface of its own, and that was tried.** An overlay layer surface with
+`KeyboardInteractivity::Exclusive` is the other way to ask, and it is how `cosmic-applet-power` once
+did it. Here it failed to draw — and a layer surface that holds the keyboard exclusively and then
+draws nothing leaves the whole session unable to type or open any menu, with no way back short of
+killing the applet. An applet must not be able to take the session down by getting its own geometry
+wrong. A popup cannot do that, so the popup is where the question lives.
 
-The popup and the dialog are separate surfaces with separate ids, and both arrive back through the
-same `SurfaceClosed`. `reconcile_surface_closed` and `reconcile_dialog_closed` each answer only for
-their own, which is what the two tests pin: a message about one must never reset the other.
+## The icons
 
-The menu rows carry no icons. Two actions do not need picture clues, and COSMIC's own applet menus
-are text.
+The only drawn asset is `resources/<app-id>.svg`, for the desktop entry's `Icon=` and the Store
+listing. There is deliberately **no** `<app-id>-symbolic.svg`: the sibling applets install one
+because they paint it in the panel, and this one never does — both panel faces come from the icon
+theme. A file nothing resolves is only a file to keep in step.
+
+The glyph is centred on the canvas, not merely placed in it. The applet list draws the icon in a
+fixed box, where a glyph whose extents are not symmetric about the centre reads as hanging low.
+
+The menu rows carry no icons at all. Two actions do not need picture clues, and COSMIC's own applet
+menus are text.

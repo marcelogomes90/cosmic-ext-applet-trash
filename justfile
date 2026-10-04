@@ -1,6 +1,5 @@
 name := 'cosmic-ext-applet-trash'
 appid := 'io.github.marcelogomes90.cosmic-ext-applet-trash'
-icon-name := appid + '-symbolic'
 
 rootdir := ''
 prefix := '/usr'
@@ -14,8 +13,6 @@ dump-src := cargo-target-dir / 'release' / name + '-dump'
 dump-dst := base-dir / 'bin' / name + '-dump'
 desktop-dst := base-dir / 'share' / 'applications' / appid + '.desktop'
 metainfo-dst := base-dir / 'share' / 'metainfo' / appid + '.metainfo.xml'
-icon-src := 'resources' / (icon-name + '.svg')
-icon-dst := base-dir / 'share' / 'icons' / 'hicolor' / 'scalable' / 'apps' / (icon-name + '.svg')
 app-icon-src := 'resources' / (appid + '.svg')
 app-icon-dst := base-dir / 'share' / 'icons' / 'hicolor' / 'scalable' / 'apps' / (appid + '.svg')
 
@@ -26,7 +23,6 @@ user-bin-dst := env('HOME') / '.local' / 'bin' / name
 user-dump-dst := env('HOME') / '.local' / 'bin' / name + '-dump'
 user-desktop-dst := user-base / 'applications' / appid + '.desktop'
 user-metainfo-dst := user-base / 'metainfo' / appid + '.metainfo.xml'
-user-icon-dst := user-base / 'icons' / 'hicolor' / 'scalable' / 'apps' / (icon-name + '.svg')
 user-app-icon-dst := user-base / 'icons' / 'hicolor' / 'scalable' / 'apps' / (appid + '.svg')
 user-license-dst := user-base / 'licenses' / appid / 'LICENSE'
 
@@ -91,18 +87,16 @@ install:
     install -Dm0755 {{dump-src}} {{dump-dst}}
     install -Dm0644 resources/{{appid}}.desktop {{desktop-dst}}
     install -Dm0644 resources/{{appid}}.metainfo.xml {{metainfo-dst}}
-    install -Dm0644 {{icon-src}} {{icon-dst}}
     install -Dm0644 {{app-icon-src}} {{app-icon-dst}}
     install -Dm0644 LICENSE {{license-dst}}
 
 uninstall:
-    rm -f {{bin-dst}} {{dump-dst}} {{desktop-dst}} {{metainfo-dst}} {{icon-dst}} {{app-icon-dst}} {{license-dst}}
+    rm -f {{bin-dst}} {{dump-dst}} {{desktop-dst}} {{metainfo-dst}} {{app-icon-dst}} {{license-dst}}
 
 install-user:
     install -Dm0755 {{bin-src}} {{user-bin-dst}}
     install -Dm0755 {{dump-src}} {{user-dump-dst}}
     install -Dm0644 resources/{{appid}}.metainfo.xml {{user-metainfo-dst}}
-    install -Dm0644 {{icon-src}} {{user-icon-dst}}
     install -Dm0644 {{app-icon-src}} {{user-app-icon-dst}}
     install -Dm0644 LICENSE {{user-license-dst}}
     mkdir -p "$(dirname {{user-desktop-dst}})"
@@ -111,7 +105,7 @@ install-user:
     @echo "Installed. Add 'Trash' in Settings -> Desktop -> Panel -> Applets."
 
 uninstall-user:
-    rm -f {{user-bin-dst}} {{user-dump-dst}} {{user-desktop-dst}} {{user-metainfo-dst}} {{user-icon-dst}} {{user-app-icon-dst}} {{user-license-dst}}
+    rm -f {{user-bin-dst}} {{user-dump-dst}} {{user-desktop-dst}} {{user-metainfo-dst}} {{user-app-icon-dst}} {{user-license-dst}}
 
 flatpak-sources:
     flatpak run --filesystem="$(pwd)" --share=network \
