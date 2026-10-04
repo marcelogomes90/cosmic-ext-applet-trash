@@ -1,3 +1,5 @@
+app-title = Prullenbak
+
 open-trash = Prullenbak openen
 empty-trash = Prullenbak leegmaken
 

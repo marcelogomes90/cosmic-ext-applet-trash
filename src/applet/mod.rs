@@ -11,8 +11,8 @@ use cosmic::iced::platform_specific::shell::commands::popup::destroy_popup;
 use cosmic::iced::{Length, Subscription, window};
 use cosmic::{Application, Element, widget};
 
-use crate::APP_ID;
 use crate::trash::{self, Status};
+use crate::{APP_ID, fl};
 
 pub use message::Message;
 
@@ -240,6 +240,15 @@ impl Application for Trash {
     fn view(&self) -> Element<'_, Message> {
         let button = widget::mouse_area(self.panel_button().on_press(Message::OpenTrash))
             .on_right_press(Message::TogglePopup);
+
+        // The dock names every icon it holds on hover; an applet has to say its own name.
+        let button = self.core.applet.applet_tooltip(
+            button,
+            fl!("app-title"),
+            self.popup != PopupState::Closed,
+            Message::Surface,
+            self.core.main_window_id(),
+        );
 
         widget::autosize::autosize(button, popup::PANEL_ID.clone())
             .limits(popup::panel_limits(

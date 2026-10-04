@@ -1,3 +1,5 @@
+app-title = Корзина
+
 open-trash = Открыть корзину
 empty-trash = Очистить корзину
 

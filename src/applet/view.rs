@@ -25,29 +25,47 @@ pub fn popup(app: &Trash) -> Element<'_, Message> {
 }
 
 fn menu(app: &Trash) -> Element<'_, Message> {
-    let open =
-        applet::menu_button(row(symbols::open(), fl!("open-trash"))).on_press(Message::OpenTrash);
+    let emptyable = !app.status().is_empty();
 
-    let empty = applet::menu_button(row(symbols::empty(), fl!("empty-trash")))
-        .on_press_maybe((!app.status().is_empty()).then_some(Message::ConfirmEmpty(true)));
+    let open = applet::menu_button(row(symbols::open(), fl!("open-trash"), true))
+        .on_press(Message::OpenTrash);
 
-    widget::column::with_children(vec![open.into(), empty.into()]).into()
+    let empty = applet::menu_button(row(symbols::empty(), fl!("empty-trash"), emptyable))
+        .on_press_maybe(emptyable.then_some(Message::ConfirmEmpty(true)));
+
+    widget::column::with_children(vec![open.into(), divider(), empty.into()])
+        .spacing(GAP_TIGHT)
+        .into()
 }
 
-fn row(handle: widget::icon::Handle, label: String) -> Element<'static, Message> {
-    widget::row::with_children(vec![
-        symbols::sized(handle, ICON).into(),
-        widget::text::body(label)
-            .ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)))
-            .width(Length::Fill)
-            .into(),
-    ])
-    .spacing(GAP + GAP_TIGHT)
-    .align_y(Alignment::Center)
-    .into()
+/// `Button::AppletMenu` paints its label with the surface's ordinary ink whether or not the button
+/// is disabled, so a row with nothing to do has to dim itself.
+fn row(handle: widget::icon::Handle, label: String, enabled: bool) -> Element<'static, Message> {
+    let mut icon = symbols::sized(handle, ICON);
+    if !enabled {
+        icon = icon.class(style::dimmed_icon());
+    }
+
+    let mut text = widget::text::body(label)
+        .ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)))
+        .width(Length::Fill);
+    if !enabled {
+        text = text.class(style::dimmed_text());
+    }
+
+    widget::row::with_children(vec![icon.into(), text.into()])
+        .spacing(GAP + GAP_TIGHT)
+        .align_y(Alignment::Center)
+        .into()
 }
 
-fn question() -> Element<'static, Message> {
+fn divider<'a>() -> Element<'a, Message> {
+    widget::container(widget::divider::horizontal::default())
+        .padding([0, cosmic::theme::spacing().space_s])
+        .into()
+}
+
+fn question<'a>() -> Element<'a, Message> {
     let words = widget::column::with_children(vec![
         widget::text::body(fl!("empty-trash-title")).into(),
         widget::text::caption(fl!("empty-trash-warning")).into(),

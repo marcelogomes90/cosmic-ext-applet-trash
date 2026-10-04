@@ -1,3 +1,5 @@
+app-title = Corbeille
+
 open-trash = Ouvrir la corbeille
 empty-trash = Vider la corbeille
 

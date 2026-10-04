@@ -1,3 +1,5 @@
+app-title = 回收站
+
 open-trash = 打开回收站
 empty-trash = 清空回收站
 

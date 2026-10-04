@@ -1,3 +1,5 @@
+app-title = Kosz
+
 open-trash = Otwórz kosz
 empty-trash = Opróżnij kosz
 

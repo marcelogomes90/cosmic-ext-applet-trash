@@ -1,3 +1,5 @@
+app-title = Papelera
+
 open-trash = Abrir la papelera
 empty-trash = Vaciar la papelera
 

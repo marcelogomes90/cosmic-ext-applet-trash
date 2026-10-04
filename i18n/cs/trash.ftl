@@ -1,3 +1,5 @@
+app-title = Koš
+
 open-trash = Otevřít koš
 empty-trash = Vysypat koš
 

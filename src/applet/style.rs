@@ -78,3 +78,24 @@ fn on_disabled(theme: &cosmic::Theme) -> Srgba {
         .component
         .on_disabled
 }
+
+const DIMMED: f32 = 0.5;
+
+pub fn dimmed_text() -> cosmic::theme::Text {
+    cosmic::theme::Text::Custom(|theme| cosmic::iced::widget::text::Style {
+        color: Some(dimmed(theme)),
+        ..Default::default()
+    })
+}
+
+pub fn dimmed_icon() -> cosmic::theme::Svg {
+    cosmic::theme::Svg::custom(|theme| cosmic::iced::widget::svg::Style {
+        color: Some(dimmed(theme)),
+    })
+}
+
+fn dimmed(theme: &cosmic::Theme) -> Color {
+    let mut ink = Color::from(theme.cosmic().on_bg_color());
+    ink.a = DIMMED;
+    ink
+}

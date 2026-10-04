@@ -1,3 +1,5 @@
+app-title = Papierkorb
+
 open-trash = Papierkorb öffnen
 empty-trash = Papierkorb leeren
 

@@ -1,3 +1,5 @@
+app-title = Смітник
+
 open-trash = Відкрити смітник
 empty-trash = Очистити смітник
 

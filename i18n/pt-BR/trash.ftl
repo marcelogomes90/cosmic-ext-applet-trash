@@ -1,3 +1,5 @@
+app-title = Lixeira
+
 open-trash = Abrir a lixeira
 empty-trash = Esvaziar a lixeira
 

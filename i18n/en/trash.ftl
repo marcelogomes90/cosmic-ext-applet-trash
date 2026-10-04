@@ -1,3 +1,5 @@
+app-title = Trash
+
 open-trash = Open Trash
 empty-trash = Empty Trash
 

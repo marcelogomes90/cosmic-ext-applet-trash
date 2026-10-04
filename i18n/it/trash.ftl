@@ -1,3 +1,5 @@
+app-title = Cestino
+
 open-trash = Apri il cestino
 empty-trash = Svuota il cestino
 
