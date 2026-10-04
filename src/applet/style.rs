@@ -88,12 +88,6 @@ pub fn dimmed_text() -> cosmic::theme::Text {
     })
 }
 
-pub fn dimmed_icon() -> cosmic::theme::Svg {
-    cosmic::theme::Svg::custom(|theme| cosmic::iced::widget::svg::Style {
-        color: Some(dimmed(theme)),
-    })
-}
-
 fn dimmed(theme: &cosmic::Theme) -> Color {
     let mut ink = Color::from(theme.cosmic().on_bg_color());
     ink.a = DIMMED;

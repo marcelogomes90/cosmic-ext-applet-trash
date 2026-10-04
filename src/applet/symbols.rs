@@ -2,21 +2,8 @@ use cosmic::widget;
 
 use crate::trash::Status;
 
-macro_rules! named {
-    ($($name:ident => $icon:literal,)*) => {
-        $(
-            pub fn $name() -> widget::icon::Handle {
-                widget::icon::from_name($icon).handle()
-            }
-        )*
-    };
-}
-
-named! {
-    open => "user-trash-symbolic",
-    empty => "edit-delete-symbolic",
-}
-
+/// The same two-by-two matrix COSMIC Files uses: a symbolic glyph for the panel, the icon theme's
+/// own colours for the dock, and a full bin for each when there is something in it.
 pub fn panel(status: Status, symbolic: bool) -> widget::icon::Handle {
     let name = match (symbolic, status) {
         (true, Status::Occupied) => "user-trash-full-symbolic",
@@ -26,10 +13,6 @@ pub fn panel(status: Status, symbolic: bool) -> widget::icon::Handle {
     };
 
     widget::icon::from_name(name).prefer_svg(true).handle()
-}
-
-pub fn sized(handle: widget::icon::Handle, size: u16) -> widget::icon::Icon {
-    widget::icon::icon(handle).size(size)
 }
 
 #[cfg(test)]
