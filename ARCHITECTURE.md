@@ -97,6 +97,20 @@ sandbox goes to the OpenURI portal, which answers an unhandled scheme by showing
 application chooser and then **returning success**. A fallback chain cannot fall back through a
 step that lies about having worked. On the host, the exit code means what it says.
 
+Two things about that host spawn cost a round of debugging each, and neither is guessable:
+
+- **`flatpak-spawn --host` hands the process no session environment.** `WAYLAND_DISPLAY` and
+  `DISPLAY` are both empty there, so COSMIC Files panicked with *"neither WAYLAND_DISPLAY nor
+  WAYLAND_SOCKET nor DISPLAY is set"* before drawing anything. `Launcher::detect` therefore asks the
+  host to list its `XDG_RUNTIME_DIR` once, takes the first `wayland-N` socket, and passes it back as
+  `--env=WAYLAND_DISPLAY=`. The applet's own `WAYLAND_DISPLAY` is no use: inside a panel it names
+  cosmic-panel's nested compositor, not the session's.
+- **Spawning successfully is not the same as launching successfully.** The first version treated a
+  successful `spawn()` as the end of the chain, so the panic above looked exactly like an opened
+  trash and nothing ever fell back. `Launcher::launch` now waits a settle window: still running
+  afterwards counts, exiting non-zero within it does not. `Launcher::handled` is the opposite case —
+  `xdg-open` is *supposed* to exit, so it is waited on in full.
+
 The last resort is a plain in-sandbox `xdg-open` on the trash directory, for the case where
 `flatpak-spawn` itself is refused. It is the only step that cannot fail for want of a permission.
 
