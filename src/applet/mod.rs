@@ -58,6 +58,10 @@ impl Trash {
         self.confirm == Confirm::Asking
     }
 
+    pub fn frosted(&self) -> bool {
+        !is_dock(&self.core.applet.panel_type)
+    }
+
     fn open_popup(&mut self) -> Task<Message> {
         let id = window::Id::unique();
         self.popup = PopupState::Open { id, closing: false };
@@ -101,7 +105,7 @@ impl Trash {
     }
 
     fn panel_button(&self) -> widget::Button<'_, Message> {
-        let handle = symbols::panel(self.status, symbolic_panel(&self.core.applet.panel_type));
+        let handle = symbols::panel(self.status, !is_dock(&self.core.applet.panel_type));
         let symbolic = handle.symbolic;
 
         let (icon_width, icon_height) = self.core.applet.suggested_size(symbolic);
@@ -130,8 +134,8 @@ impl Trash {
     }
 }
 
-fn symbolic_panel(panel: &PanelType) -> bool {
-    *panel != PanelType::Dock
+fn is_dock(panel: &PanelType) -> bool {
+    *panel == PanelType::Dock
 }
 
 fn reconcile_surface_closed(id: window::Id, state: &mut PopupState) -> bool {
@@ -221,13 +225,13 @@ impl Application for Trash {
                     Message::Relayout
                 }),
             ]),
-            Message::ConfirmEmpty(asking) => {
-                self.confirm = if asking {
-                    Confirm::Asking
-                } else {
-                    Confirm::Idle
-                };
+            Message::ConfirmEmpty(true) => {
+                self.confirm = Confirm::Asking;
                 cosmic::task::message(Message::Relayout)
+            }
+            Message::ConfirmEmpty(false) => {
+                self.confirm = Confirm::Idle;
+                self.close_popup()
             }
             Message::Empty => {
                 self.confirm = Confirm::Idle;
@@ -241,7 +245,7 @@ impl Application for Trash {
         let button = widget::mouse_area(self.panel_button().on_press(Message::OpenTrash))
             .on_right_press(Message::TogglePopup);
 
-        let button: Element<'_, Message> = if self.core.applet.panel_type == PanelType::Dock {
+        let button: Element<'_, Message> = if is_dock(&self.core.applet.panel_type) {
             self.core
                 .applet
                 .applet_tooltip(
@@ -314,22 +318,34 @@ mod tests {
     }
 
     #[test]
-    fn the_panel_asks_for_symbolic_icons_everywhere_but_the_dock() {
+    fn only_the_dock_counts_as_a_dock() {
+        assert!(is_dock(&PanelType::Dock), "the dock is the dock");
+        assert!(!is_dock(&PanelType::Panel), "a panel is not a dock");
         assert!(
-            symbolic_panel(&PanelType::Panel),
-            "the panel wants the glyph every native applet uses"
+            !is_dock(&PanelType::Other(String::new())),
+            "run outside a panel at all, the conservative answer is not-a-dock"
         );
         assert!(
-            !symbolic_panel(&PanelType::Dock),
-            "the dock wants the icon the theme drew for an application"
+            !is_dock(&PanelType::Other("Sidebar".to_string())),
+            "a user-created panel is still not a dock"
         );
-        assert!(
-            symbolic_panel(&PanelType::Other(String::new())),
-            "run outside a panel, the conservative choice is the symbolic glyph"
-        );
-        assert!(
-            symbolic_panel(&PanelType::Other("Sidebar".to_string())),
-            "a user-created panel is still a panel"
-        );
+    }
+
+    #[test]
+    fn the_dock_takes_a_full_colour_icon_a_name_on_hover_and_no_frosted_popup() {
+        for (host, dock) in [
+            (PanelType::Dock, true),
+            (PanelType::Panel, false),
+            (PanelType::Other(String::new()), false),
+        ] {
+            let on_a_dock = is_dock(&host);
+
+            assert_eq!(on_a_dock, dock, "{host:?} should read as dock={dock}");
+            assert_eq!(
+                symbols::panel(Status::Empty, !on_a_dock).symbolic,
+                !dock,
+                "the dock shows an application icon, everywhere else shows a status glyph"
+            );
+        }
     }
 }

@@ -7,16 +7,10 @@ use super::message::Message;
 use super::{Trash, popup, style};
 use crate::fl;
 
-const GAP_TIGHT: u16 = 4;
-
 pub fn popup(app: &Trash) -> Element<'_, Message> {
-    let body: Element<'_, Message> = if app.asking() {
-        question()
-    } else {
-        widget::container(menu(app)).padding([GAP_TIGHT, 0]).into()
-    };
+    let body: Element<'_, Message> = if app.asking() { question() } else { menu(app) };
 
-    let surface = widget::container(body).style(style::surface);
+    let surface = widget::container(body).style(style::surface(app.frosted()));
 
     widget::autosize::autosize(surface, popup::SURFACE_ID.clone())
         .limits(popup::surface_limits())
@@ -31,9 +25,7 @@ fn menu(app: &Trash) -> Element<'_, Message> {
     let empty = applet::menu_button(label(fl!("empty-trash"), emptyable))
         .on_press_maybe(emptyable.then_some(Message::ConfirmEmpty(true)));
 
-    widget::column::with_children(vec![open.into(), divider(), empty.into()])
-        .spacing(GAP_TIGHT)
-        .into()
+    widget::column::with_children(vec![open.into(), divider(), empty.into()]).into()
 }
 
 fn label(text: String, enabled: bool) -> Element<'static, Message> {
@@ -49,9 +41,7 @@ fn label(text: String, enabled: bool) -> Element<'static, Message> {
 }
 
 fn divider<'a>() -> Element<'a, Message> {
-    widget::container(widget::divider::horizontal::default())
-        .padding([0, cosmic::theme::spacing().space_s])
-        .into()
+    widget::divider::horizontal::default().into()
 }
 
 fn question<'a>() -> Element<'a, Message> {

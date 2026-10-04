@@ -2,21 +2,23 @@ use cosmic::cosmic_theme::palette::Srgba;
 use cosmic::iced::{Background, Border, Color, Shadow};
 use cosmic::widget;
 
-pub fn surface(theme: &cosmic::Theme) -> widget::container::Style {
-    let cosmic = theme.cosmic();
-    let background = cosmic.background(theme.transparent);
+pub fn surface(frosted: bool) -> impl Fn(&cosmic::Theme) -> widget::container::Style {
+    move |theme| {
+        let cosmic = theme.cosmic();
+        let background = cosmic.background(frosted && cosmic.frosted_applets);
 
-    widget::container::Style {
-        text_color: Some(background.on.into()),
-        icon_color: Some(background.on.into()),
-        background: Some(Color::from(background.base).into()),
-        border: Border {
-            radius: cosmic.corner_radii.radius_m.into(),
-            width: 1.0,
-            color: background.divider.into(),
-        },
-        shadow: Shadow::default(),
-        snap: true,
+        widget::container::Style {
+            text_color: Some(background.on.into()),
+            icon_color: Some(background.on.into()),
+            background: Some(Color::from(background.base).into()),
+            border: Border {
+                radius: cosmic.corner_radii.radius_m.into(),
+                width: 1.0,
+                color: background.divider.into(),
+            },
+            shadow: Shadow::default(),
+            snap: true,
+        }
     }
 }
 
