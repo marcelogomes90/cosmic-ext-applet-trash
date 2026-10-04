@@ -18,6 +18,17 @@ pub fn surface_limits() -> Limits {
         .max_height(SURFACE_MAX_HEIGHT)
 }
 
+pub const DIALOG_WIDTH: u16 = 420;
+pub const DIALOG_HEIGHT: u16 = 240;
+
+pub fn dialog_limits() -> Limits {
+    Limits::NONE
+        .min_width(1.0)
+        .max_width(f32::from(DIALOG_WIDTH))
+        .min_height(1.0)
+        .max_height(f32::from(DIALOG_HEIGHT))
+}
+
 pub fn panel_limits(suggested: Option<Size>, horizontal: bool) -> Limits {
     let Some(bounds) = suggested else {
         return Limits::NONE;

@@ -12,9 +12,9 @@ Trash puts the wastebasket where you can actually reach it. It sits in the COSMI
 a single icon that tells you, at a glance, whether anything is waiting to be thrown out.
 
 A left click opens the trash in your file manager. A right click offers the same, plus emptying it
-— and emptying asks first, because it cannot be undone. There is no file list, no settings and
-nothing to configure: it uses the desktop's own trash and the icons your icon theme already
-provides.
+— and emptying asks in a dialog of its own, because it cannot be undone and a question you can
+dismiss by looking away is not a question. There is no file list, no settings and nothing to
+configure: it uses the desktop's own trash and the icon your icon theme already provides.
 
 <img src="resources/screenshots/desktop.png" alt="Trash in the COSMIC panel" />
 

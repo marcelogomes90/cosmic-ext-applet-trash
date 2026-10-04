@@ -141,12 +141,24 @@ The popup keeps `Open Trash` as its first row even though a left click already d
 menu that offers only the destructive half of what the applet does reads as if opening were
 unavailable.
 
-## The question replaces the menu
+## The question gets a surface of its own
 
-With exactly two actions there is no room for a confirmation card below them, and no reason to make
-the popup grow. While the question is up it *is* the popup; cancelling puts the two rows back. That
-also means there is no height budget to maintain, and the question cannot be left behind: closing
-the popup resets it.
+Emptying the trash cannot be undone, so the question must survive the user looking away. Inside the
+popup it would not: a popup is dismissed by any click outside it, and a dismissed question is a
+question the user never answered.
 
-It is an inline question rather than a dialog because the popup is a grabbing Wayland popup, and a
-dialog would need a surface of its own.
+So `open_dialog` creates an **overlay layer surface** with
+`KeyboardInteractivity::Exclusive`, a fixed size and bounded `size_limits`, holding a
+`widget::dialog()`. It is the shape `cosmic-applet-power` used for the same kind of question. The
+popup is closed first — a grabbing popup and a keyboard-exclusive layer surface should not be up at
+once.
+
+Holding the keyboard means owing the user a way out of it, so `subscription::dismissal` listens for
+Escape, and only while the dialog is open.
+
+The popup and the dialog are separate surfaces with separate ids, and both arrive back through the
+same `SurfaceClosed`. `reconcile_surface_closed` and `reconcile_dialog_closed` each answer only for
+their own, which is what the two tests pin: a message about one must never reset the other.
+
+The menu rows carry no icons. Two actions do not need picture clues, and COSMIC's own applet menus
+are text.
