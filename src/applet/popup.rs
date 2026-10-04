@@ -5,8 +5,6 @@ use cosmic::iced::{Limits, Size};
 pub const SURFACE_WIDTH: f32 = 300.0;
 pub const SURFACE_MAX_HEIGHT: f32 = 400.0;
 
-pub static SURFACE_ID: LazyLock<cosmic::iced::id::Id> =
-    LazyLock::new(|| cosmic::iced::id::Id::new("cosmic-ext-applet-trash-popup"));
 pub static PANEL_ID: LazyLock<cosmic::iced::id::Id> =
     LazyLock::new(|| cosmic::iced::id::Id::new("cosmic-ext-applet-trash-panel"));
 

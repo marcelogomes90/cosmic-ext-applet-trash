@@ -156,14 +156,8 @@ The popup keeps `Open Trash` as its first row even though a left click already d
 menu that offers only the destructive half of what the applet does reads as if opening were
 unavailable.
 
-The menu rows run to the popup's edges, which is how COSMIC's own menus are drawn; the divider
-between them keeps a horizontal inset, which is how they draw that. Cancelling the question closes the popup rather than returning
-to the menu — the user who cancels is done, not browsing.
-
-`Empty Trash` dims itself when there is nothing to empty. `Button::AppletMenu` overwrites its label
-and icon colour with the surface's ordinary ink whether or not the button is disabled — the
-`on_disabled` colour that `Catalog::disabled` works out is discarded in that arm — so a disabled
-applet-menu row looks exactly like an available one unless it dims its own label.
+Cancelling the question closes the popup rather than returning to the menu — the user who cancels is
+done, not browsing.
 
 The tooltip naming the applet is wrapped on **only** when `panel_type == Dock`. The dock names every
 icon it holds on hover and an applet gets none of that for free; a panel names nothing, so a tooltip

@@ -4,15 +4,19 @@ use cosmic::iced::advanced::text::{Ellipsize, EllipsizeHeightLimit};
 use cosmic::{Element, widget};
 
 use super::message::Message;
-use super::{Trash, popup, style};
+use super::{Trash, popup};
 use crate::fl;
 
 pub fn popup(app: &Trash) -> Element<'_, Message> {
     let body: Element<'_, Message> = if app.asking() { question() } else { menu(app) };
 
-    let surface = widget::container(body).style(style::surface);
-
-    widget::autosize::autosize(surface, popup::SURFACE_ID.clone())
+    app.applet()
+        .popup_container(
+            widget::container(body)
+                .padding(1)
+                .height(Length::Shrink)
+                .width(Length::Fill),
+        )
         .limits(popup::surface_limits())
         .into()
 }
@@ -20,30 +24,27 @@ pub fn popup(app: &Trash) -> Element<'_, Message> {
 fn menu(app: &Trash) -> Element<'_, Message> {
     let emptyable = !app.status().is_empty();
 
-    let open = applet::menu_button(label(fl!("open-trash"), true)).on_press(Message::OpenTrash);
+    let open = menu_button(fl!("open-trash")).on_press(Message::OpenTrash);
 
-    let empty = applet::menu_button(label(fl!("empty-trash"), emptyable))
+    let empty = menu_button(fl!("empty-trash"))
         .on_press_maybe(emptyable.then_some(Message::ConfirmEmpty(true)));
 
-    widget::column::with_children(vec![open.into(), divider(), empty.into()]).into()
+    widget::column::with_children(vec![
+        open.into(),
+        widget::divider::horizontal::light().into(),
+        empty.into(),
+    ])
+    .into()
 }
 
-fn label(text: String, enabled: bool) -> Element<'static, Message> {
-    let mut text = widget::text::body(text)
-        .ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)))
-        .width(Length::Fill);
-
-    if !enabled {
-        text = text.class(style::dimmed_text());
-    }
-
-    text.into()
-}
-
-fn divider<'a>() -> Element<'a, Message> {
-    widget::container(widget::divider::horizontal::default())
-        .padding([0, cosmic::theme::spacing().space_s])
-        .into()
+fn menu_button<'a>(label: String) -> widget::Button<'a, Message> {
+    widget::button::custom(
+        widget::text::body(label).ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1))),
+    )
+    .height(20 + 2 * cosmic::theme::spacing().space_xxs)
+    .class(cosmic::theme::Button::MenuItem)
+    .padding(applet::menu_control_padding())
+    .width(Length::Fill)
 }
 
 fn question<'a>() -> Element<'a, Message> {
@@ -62,7 +63,7 @@ fn question<'a>() -> Element<'a, Message> {
         widget::button::standard(fl!("action-cancel"))
             .on_press(Message::ConfirmEmpty(false))
             .into(),
-        widget::button::suggested(fl!("empty-trash"))
+        widget::button::suggested(fl!("action-confirm"))
             .on_press(Message::Empty)
             .into(),
     ])

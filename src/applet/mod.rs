@@ -58,6 +58,10 @@ impl Trash {
         self.confirm == Confirm::Asking
     }
 
+    pub fn applet(&self) -> &cosmic::applet::Context {
+        &self.core.applet
+    }
+
     fn open_popup(&mut self) -> Task<Message> {
         let id = window::Id::unique();
         self.popup = PopupState::Open { id, closing: false };

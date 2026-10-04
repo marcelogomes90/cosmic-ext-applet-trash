@@ -6,3 +6,4 @@ empty-trash = Vaciar papelera
 empty-trash-title = ¿Vaciar papelera?
 empty-trash-warning = Los elementos se eliminarán permanentemente.
 action-cancel = Cancelar
+action-confirm = Confirmar
