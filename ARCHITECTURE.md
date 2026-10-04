@@ -130,15 +130,17 @@ One question, `is_dock`, and three answers hang off it:
   glyphs, and a trash applet is both depending on where it is put.
 - **The tooltip.** The dock names every icon it holds on hover and an applet gets none of that for
   free; a panel names nothing, so a tooltip there would be noise.
-- **The frosted popup.** `Theme::transparent` is never set to true anywhere in libcosmic, so
-  `background(transparent)` would always resolve to the opaque container and the blur the compositor
-  puts behind the popup would never show through. The applet has to ask for the translucent variant
-  itself: `background(frosted && cosmic.frosted_applets)`. It asks for it on a panel and not on a
-  dock, because that is what COSMIC's own menus do — observed, not documented, so if a future COSMIC
-  frosts dock menus too this is the line to change.
-
 `PanelType::Other`, which includes a user-created panel and the applet run outside a panel at all,
 is not a dock.
+
+**Frosting is not one of the questions.** It looks like it should be — COSMIC frosts panel menus and
+not dock ones — but the applet must not decide it. The runtime keeps `Theme::transparent` as
+`blur_enabled && core.frosted(theme)`, where `frosted` reads the theme's `frosted_applets` and
+`blur_enabled` is set from an `Action::BlurEnabled` the **compositor** sends per surface. That is
+exactly where the dock-versus-panel difference comes from. So `style::surface` reads
+`background(theme.transparent)` and nothing else — the same token `core.applet.popup_container` uses,
+which is what makes the popup identical to `cosmic-app-list`'s. Deciding it here instead was tried,
+and it got the dock wrong.
 
 ## Left click acts, right click offers
 
@@ -154,8 +156,8 @@ The popup keeps `Open Trash` as its first row even though a left click already d
 menu that offers only the destructive half of what the applet does reads as if opening were
 unavailable.
 
-The menu has no padding of its own and the divider no inset: rows run to the popup's edges, which
-is how COSMIC's own menus are drawn. Cancelling the question closes the popup rather than returning
+The menu rows run to the popup's edges, which is how COSMIC's own menus are drawn; the divider
+between them keeps a horizontal inset, which is how they draw that. Cancelling the question closes the popup rather than returning
 to the menu — the user who cancels is done, not browsing.
 
 `Empty Trash` dims itself when there is nothing to empty. `Button::AppletMenu` overwrites its label

@@ -10,7 +10,7 @@ use crate::fl;
 pub fn popup(app: &Trash) -> Element<'_, Message> {
     let body: Element<'_, Message> = if app.asking() { question() } else { menu(app) };
 
-    let surface = widget::container(body).style(style::surface(app.frosted()));
+    let surface = widget::container(body).style(style::surface);
 
     widget::autosize::autosize(surface, popup::SURFACE_ID.clone())
         .limits(popup::surface_limits())
@@ -41,7 +41,9 @@ fn label(text: String, enabled: bool) -> Element<'static, Message> {
 }
 
 fn divider<'a>() -> Element<'a, Message> {
-    widget::divider::horizontal::default().into()
+    widget::container(widget::divider::horizontal::default())
+        .padding([0, cosmic::theme::spacing().space_s])
+        .into()
 }
 
 fn question<'a>() -> Element<'a, Message> {

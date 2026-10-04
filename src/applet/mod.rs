@@ -58,10 +58,6 @@ impl Trash {
         self.confirm == Confirm::Asking
     }
 
-    pub fn frosted(&self) -> bool {
-        !is_dock(&self.core.applet.panel_type)
-    }
-
     fn open_popup(&mut self) -> Task<Message> {
         let id = window::Id::unique();
         self.popup = PopupState::Open { id, closing: false };
@@ -332,7 +328,7 @@ mod tests {
     }
 
     #[test]
-    fn the_dock_takes_a_full_colour_icon_a_name_on_hover_and_no_frosted_popup() {
+    fn the_dock_takes_a_full_colour_icon_and_a_name_on_hover() {
         for (host, dock) in [
             (PanelType::Dock, true),
             (PanelType::Panel, false),
