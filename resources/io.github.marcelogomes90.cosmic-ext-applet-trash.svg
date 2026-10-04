@@ -1,11 +1,10 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M24 40C24 31.1634 31.1634 24 40 24H216C224.837 24 232 31.1634 232 40V216C232 224.837 224.837 232 216 232H40C31.1634 232 24 224.837 24 216V40Z" fill="url(#plate)"/>
-  <rect x="104" y="62" width="48" height="16" rx="8" fill="#FFFFFF" fill-opacity="0.95"/>
-  <rect x="52" y="84" width="152" height="24" rx="12" fill="#FFFFFF" fill-opacity="0.95"/>
+  <rect x="66" y="74" width="124" height="18" rx="9" fill="#FFFFFF" fill-opacity="0.95"/>
   <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" fill-opacity="0.95"
-        d="M70 120H186L174 184C172.5 190 167 194 161 194H95C89 194 83.5 190 82 184Z
-           M112 142A5 5 0 0 1 122 142V168A5 5 0 0 1 112 168Z
-           M134 142A5 5 0 0 1 144 142V168A5 5 0 0 1 134 168Z"/>
+        d="M78 102H178L166 171C165 176 160 182 154 182H102C96 182 91 176 90 171Z
+           M114 131.0A5.0 5.0 0 0 1 124 131.0V159.0A5.0 5.0 0 0 1 114 159.0Z
+           M132 131.0A5.0 5.0 0 0 1 142 131.0V159.0A5.0 5.0 0 0 1 132 159.0Z"/>
   <defs>
     <linearGradient id="plate" x1="24" y1="232" x2="232" y2="24" gradientUnits="userSpaceOnUse">
       <stop stop-color="#4A3C8C"/><stop offset="1" stop-color="#8E7EDA"/>

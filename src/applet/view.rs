@@ -60,13 +60,15 @@ fn divider<'a>() -> Element<'a, Message> {
 }
 
 /// COSMIC Files has an Empty Trash dialog, but exposes neither a D-Bus interface nor a
-/// command-line flag to raise it, so the question is asked here — in its own widget, so the two
-/// read as the same question.
+/// command-line flag to raise it, so the question is asked here — same widget, same pair of
+/// buttons, so the two read as one question. The primary action is `suggested`, not
+/// `destructive`: that is what COSMIC Files uses, and it follows the desktop's accent colour
+/// instead of pinning a red of its own.
 fn question<'a>() -> Element<'a, Message> {
     widget::dialog()
         .title(fl!("empty-trash-title"))
         .body(fl!("empty-trash-warning"))
-        .primary_action(widget::button::destructive(fl!("empty-trash")).on_press(Message::Empty))
+        .primary_action(widget::button::suggested(fl!("empty-trash")).on_press(Message::Empty))
         .secondary_action(
             widget::button::standard(fl!("action-cancel")).on_press(Message::ConfirmEmpty(false)),
         )
