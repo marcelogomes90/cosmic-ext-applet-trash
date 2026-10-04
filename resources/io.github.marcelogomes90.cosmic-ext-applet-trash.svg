@@ -1,0 +1,10 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M24 40C24 31.1634 31.1634 24 40 24H216C224.837 24 232 31.1634 232 40V216C232 224.837 224.837 232 216 232H40C31.1634 232 24 224.837 24 216V40Z" fill="url(#plate)"/>
+  <rect x="52" y="68" width="152" height="24" rx="12" fill="#FFFFFF" fill-opacity="0.95"/>
+  <path d="M74 106H182L168 196C167 203 161 208 154 208H102C95 208 89 203 88 196Z" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="14" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="plate" x1="24" y1="232" x2="232" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4A3C8C"/><stop offset="1" stop-color="#8E7EDA"/>
+    </linearGradient>
+  </defs>
+</svg>

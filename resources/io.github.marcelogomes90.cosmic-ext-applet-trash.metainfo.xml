@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.marcelogomes90.cosmic-ext-applet-trash</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <project_group>COSMIC</project_group>
+  <developer_name>Marcelo Gomes</developer_name>
+  <developer id="io.github.marcelogomes90">
+    <name>Marcelo Gomes</name>
+  </developer>
+  <update_contact>marcelo.sobrinho@outlook.com</update_contact>
+
+  <name>Trash</name>
+
+  <summary>The trash, one click from the panel</summary>
+  <summary xml:lang="cs">Koš na dosah jediného kliknutí z panelu</summary>
+  <summary xml:lang="de">Der Papierkorb, einen Klick vom Panel entfernt</summary>
+  <summary xml:lang="es">La papelera, a un clic del panel</summary>
+  <summary xml:lang="fr">La corbeille, à un clic du panneau</summary>
+  <summary xml:lang="it">Il cestino, a un clic dal pannello</summary>
+  <summary xml:lang="nl">De prullenbak, één klik vanaf het paneel</summary>
+  <summary xml:lang="pl">Kosz o jedno kliknięcie od panelu</summary>
+  <summary xml:lang="pt-BR">A lixeira a um clique do painel</summary>
+  <summary xml:lang="ru">Корзина — в одном щелчке от панели</summary>
+  <summary xml:lang="uk">Смітник — за одне клацання з панелі</summary>
+  <summary xml:lang="zh-CN">回收站，离面板只有一次点击</summary>
+
+  <description>
+    <p>Trash puts the wastebasket where you can actually reach it. It sits in the COSMIC panel or dock as a single icon that tells you, at a glance, whether anything is waiting to be thrown out.</p>
+    <p>Clicking it opens two actions and nothing else: open the trash in your file manager, or empty it. Emptying asks first, because it cannot be undone. There is no file list, no settings and nothing to configure — it uses the desktop&#x27;s own trash and the icons your icon theme already provides.</p>
+    <ul>
+      <li>An icon that shows whether the trash is empty or full</li>
+      <li>Opens the trash in your usual file manager</li>
+      <li>Emptying asks before anything is deleted for good</li>
+      <li>Uses the FreeDesktop trash every application already shares</li>
+    </ul>
+    <p xml:lang="cs">Trash dává koš tam, kam na něj skutečně dosáhnete. Sedí v panelu nebo doku COSMIC jako jediná ikona, která na první pohled prozradí, jestli něco čeká na vyhození.</p>
+    <p xml:lang="cs">Kliknutí otevře dvě akce a nic víc: otevřít koš ve správci souborů, nebo ho vysypat. Vysypání se nejdřív zeptá, protože se nedá vzít zpět. Žádný seznam souborů, žádné nastavení a nic ke konfiguraci — používá koš samotného systému a ikony, které už váš motiv ikon nabízí.</p>
+    <ul>
+      <li xml:lang="cs">Ikona, která ukáže, jestli je koš prázdný, nebo plný</li>
+      <li xml:lang="cs">Otevře koš ve vašem obvyklém správci souborů</li>
+      <li xml:lang="cs">Vysypání se zeptá, než se cokoli nenávratně smaže</li>
+      <li xml:lang="cs">Používá koš podle FreeDesktopu, který sdílí všechny aplikace</li>
+    </ul>
+    <p xml:lang="de">Trash bringt den Papierkorb dorthin, wo du ihn wirklich erreichst. Er sitzt als einzelnes Symbol im COSMIC-Panel oder -Dock und zeigt auf einen Blick, ob etwas auf das Wegwerfen wartet.</p>
+    <p xml:lang="de">Ein Klick öffnet zwei Aktionen und sonst nichts: den Papierkorb im Dateimanager öffnen oder ihn leeren. Das Leeren fragt vorher nach, denn es lässt sich nicht rückgängig machen. Keine Dateiliste, keine Einstellungen und nichts einzurichten – es nutzt den Papierkorb des Systems und die Symbole, die dein Symbolthema ohnehin mitbringt.</p>
+    <ul>
+      <li xml:lang="de">Ein Symbol, das zeigt, ob der Papierkorb leer oder voll ist</li>
+      <li xml:lang="de">Öffnet den Papierkorb in deinem gewohnten Dateimanager</li>
+      <li xml:lang="de">Das Leeren fragt nach, bevor etwas endgültig gelöscht wird</li>
+      <li xml:lang="de">Nutzt den FreeDesktop-Papierkorb, den alle Anwendungen teilen</li>
+    </ul>
+    <p xml:lang="es">Trash pone la papelera donde de verdad puedes alcanzarla. Vive en el panel o el dock de COSMIC como un único icono que te dice, de un vistazo, si hay algo esperando a tirarse.</p>
+    <p xml:lang="es">Al pulsarlo aparecen dos acciones y nada más: abrir la papelera en tu gestor de archivos o vaciarla. Vaciarla pregunta antes, porque no se puede deshacer. Sin lista de archivos, sin ajustes y sin nada que configurar: usa la papelera del propio escritorio y los iconos que ya trae tu tema.</p>
+    <ul>
+      <li xml:lang="es">Un icono que muestra si la papelera está vacía o llena</li>
+      <li xml:lang="es">Abre la papelera en tu gestor de archivos de siempre</li>
+      <li xml:lang="es">Vaciarla pregunta antes de borrar nada para siempre</li>
+      <li xml:lang="es">Usa la papelera de FreeDesktop que ya comparten todas las aplicaciones</li>
+    </ul>
+    <p xml:lang="fr">Trash met la corbeille là où vous pouvez vraiment l’atteindre. Elle vit dans le panneau ou le dock COSMIC sous la forme d’une seule icône qui indique, d’un coup d’œil, si quelque chose attend d’être jeté.</p>
+    <p xml:lang="fr">Un clic ouvre deux actions et rien d’autre : ouvrir la corbeille dans votre gestionnaire de fichiers, ou la vider. Le vidage demande confirmation, car il est irréversible. Pas de liste de fichiers, pas de réglages et rien à configurer : il utilise la corbeille du bureau et les icônes que votre thème fournit déjà.</p>
+    <ul>
+      <li xml:lang="fr">Une icône qui indique si la corbeille est vide ou pleine</li>
+      <li xml:lang="fr">Ouvre la corbeille dans votre gestionnaire de fichiers habituel</li>
+      <li xml:lang="fr">Le vidage demande confirmation avant toute suppression définitive</li>
+      <li xml:lang="fr">Utilise la corbeille FreeDesktop que toutes les applications partagent</li>
+    </ul>
+    <p xml:lang="it">Trash mette il cestino dove puoi davvero raggiungerlo. Vive nel pannello o nel dock di COSMIC come una sola icona che dice, a colpo d’occhio, se c’è qualcosa in attesa di essere buttato.</p>
+    <p xml:lang="it">Un clic apre due azioni e nient’altro: aprire il cestino nel gestore di file o svuotarlo. Lo svuotamento chiede prima, perché non si può annullare. Nessun elenco di file, nessuna impostazione e niente da configurare: usa il cestino del sistema e le icone che il tuo tema già fornisce.</p>
+    <ul>
+      <li xml:lang="it">Un’icona che mostra se il cestino è vuoto o pieno</li>
+      <li xml:lang="it">Apre il cestino nel tuo solito gestore di file</li>
+      <li xml:lang="it">Lo svuotamento chiede prima di eliminare qualcosa per sempre</li>
+      <li xml:lang="it">Usa il cestino FreeDesktop che tutte le applicazioni già condividono</li>
+    </ul>
+    <p xml:lang="nl">Trash zet de prullenbak waar je er echt bij kunt. Hij staat als één pictogram op het COSMIC-paneel of in het dock en laat in één oogopslag zien of er iets wacht om weggegooid te worden.</p>
+    <p xml:lang="nl">Eén klik toont twee acties en verder niets: de prullenbak openen in je bestandsbeheerder of hem leegmaken. Leegmaken vraagt het eerst, want het kan niet ongedaan worden gemaakt. Geen bestandslijst, geen instellingen en niets in te stellen — het gebruikt de prullenbak van het bureaublad zelf en de pictogrammen die je thema al levert.</p>
+    <ul>
+      <li xml:lang="nl">Een pictogram dat laat zien of de prullenbak leeg of vol is</li>
+      <li xml:lang="nl">Opent de prullenbak in je gebruikelijke bestandsbeheerder</li>
+      <li xml:lang="nl">Leegmaken vraagt het voordat er iets definitief wordt verwijderd</li>
+      <li xml:lang="nl">Gebruikt de FreeDesktop-prullenbak die alle programma&#x27;s al delen</li>
+    </ul>
+    <p xml:lang="pl">Trash umieszcza kosz tam, gdzie naprawdę można po niego sięgnąć. Siedzi w panelu lub doku COSMIC jako jedna ikona, która od razu pokazuje, czy coś czeka na wyrzucenie.</p>
+    <p xml:lang="pl">Kliknięcie otwiera dwie akcje i nic więcej: otworzyć kosz w menedżerze plików albo go opróżnić. Opróżnianie najpierw pyta, bo nie da się go cofnąć. Żadnej listy plików, żadnych ustawień i niczego do konfigurowania — korzysta z kosza samego środowiska i z ikon, które już daje twój motyw.</p>
+    <ul>
+      <li xml:lang="pl">Ikona pokazująca, czy kosz jest pusty, czy pełny</li>
+      <li xml:lang="pl">Otwiera kosz w twoim zwykłym menedżerze plików</li>
+      <li xml:lang="pl">Opróżnianie pyta, zanim cokolwiek zniknie na zawsze</li>
+      <li xml:lang="pl">Korzysta z kosza FreeDesktop, który dzielą już wszystkie programy</li>
+    </ul>
+    <p xml:lang="pt-BR">O Trash coloca a lixeira onde dá para alcançá-la de verdade. Ele fica no painel ou no dock do COSMIC como um único ícone que mostra, de relance, se há algo esperando para ser jogado fora.</p>
+    <p xml:lang="pt-BR">Um clique abre duas ações e mais nada: abrir a lixeira no gerenciador de arquivos ou esvaziá-la. Esvaziar pergunta antes, porque não dá para desfazer. Sem lista de arquivos, sem configurações e sem nada para ajustar — ele usa a lixeira do próprio sistema e os ícones que o seu tema já oferece.</p>
+    <ul>
+      <li xml:lang="pt-BR">Um ícone que mostra se a lixeira está vazia ou cheia</li>
+      <li xml:lang="pt-BR">Abre a lixeira no seu gerenciador de arquivos de sempre</li>
+      <li xml:lang="pt-BR">Esvaziar pergunta antes de apagar qualquer coisa para sempre</li>
+      <li xml:lang="pt-BR">Usa a lixeira FreeDesktop que todos os aplicativos já compartilham</li>
+    </ul>
+    <p xml:lang="ru">Trash помещает корзину туда, где до неё действительно можно дотянуться. Он живёт на панели или в доке COSMIC как один значок, по которому сразу видно, ждёт ли что-нибудь выброса.</p>
+    <p xml:lang="ru">Щелчок открывает два действия и ничего больше: открыть корзину в файловом менеджере или очистить её. Очистка сначала спрашивает, потому что её не отменить. Ни списка файлов, ни настроек, ни чего-либо для настройки — используется корзина самой системы и значки, которые уже есть в вашей теме.</p>
+    <ul>
+      <li xml:lang="ru">Значок, показывающий, пуста корзина или полна</li>
+      <li xml:lang="ru">Открывает корзину в вашем привычном файловом менеджере</li>
+      <li xml:lang="ru">Очистка спрашивает, прежде чем что-то удалить навсегда</li>
+      <li xml:lang="ru">Использует корзину FreeDesktop, общую для всех приложений</li>
+    </ul>
+    <p xml:lang="uk">Trash розміщує смітник там, де до нього справді можна дотягнутися. Він живе на панелі або в доку COSMIC як один значок, за яким одразу видно, чи щось чекає на викидання.</p>
+    <p xml:lang="uk">Клацання відкриває дві дії й більше нічого: відкрити смітник у файловому менеджері або очистити його. Очищення спершу запитує, бо його не скасувати. Жодного списку файлів, жодних налаштувань і нічого налаштовувати — використовується смітник самої системи та значки, які вже є у вашій темі.</p>
+    <ul>
+      <li xml:lang="uk">Значок, який показує, порожній смітник чи повний</li>
+      <li xml:lang="uk">Відкриває смітник у вашому звичному файловому менеджері</li>
+      <li xml:lang="uk">Очищення запитує, перш ніж щось вилучити назавжди</li>
+      <li xml:lang="uk">Використовує смітник FreeDesktop, спільний для всіх програм</li>
+    </ul>
+    <p xml:lang="zh-CN">Trash 把回收站放在你真正够得着的地方。它以一个图标的形式待在 COSMIC 面板或程序坞里，一眼就能看出是否有东西等着被丢掉。</p>
+    <p xml:lang="zh-CN">点击只会打开两个操作，别无其他：在文件管理器中打开回收站，或者清空它。清空会先询问，因为这一步无法撤销。没有文件列表，没有设置，也没有任何需要配置的东西——它使用系统自己的回收站和你的图标主题已经提供的图标。</p>
+    <ul>
+      <li xml:lang="zh-CN">一个图标，显示回收站是空的还是满的</li>
+      <li xml:lang="zh-CN">在你惯用的文件管理器中打开回收站</li>
+      <li xml:lang="zh-CN">清空前会先询问，再永久删除任何内容</li>
+      <li xml:lang="zh-CN">使用所有应用共享的 FreeDesktop 回收站</li>
+    </ul>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/desktop.png</image>
+      <caption>The applet in the COSMIC panel, with something waiting in the trash</caption>
+      <caption xml:lang="cs">Applet v panelu COSMIC, s něčím, co čeká v koši</caption>
+      <caption xml:lang="de">Das Applet im COSMIC-Panel, mit etwas im Papierkorb</caption>
+      <caption xml:lang="es">El applet en el panel de COSMIC, con algo esperando en la papelera</caption>
+      <caption xml:lang="fr">L’applet dans le panneau COSMIC, avec quelque chose dans la corbeille</caption>
+      <caption xml:lang="it">L’applet nel pannello di COSMIC, con qualcosa in attesa nel cestino</caption>
+      <caption xml:lang="nl">Het applet op het COSMIC-paneel, met iets in de prullenbak</caption>
+      <caption xml:lang="pl">Aplet w panelu COSMIC, z czymś czekającym w koszu</caption>
+      <caption xml:lang="pt-BR">O applet no painel do COSMIC, com algo esperando na lixeira</caption>
+      <caption xml:lang="ru">Апплет на панели COSMIC, когда в корзине что-то есть</caption>
+      <caption xml:lang="uk">Аплет на панелі COSMIC, коли у смітнику щось є</caption>
+      <caption xml:lang="zh-CN">COSMIC 面板中的小程序，回收站里有东西在等着</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/popup.png</image>
+      <caption>Two actions, and a question before anything is deleted</caption>
+      <caption xml:lang="cs">Dvě akce a otázka, než se cokoli smaže</caption>
+      <caption xml:lang="de">Zwei Aktionen und eine Nachfrage, bevor etwas gelöscht wird</caption>
+      <caption xml:lang="es">Dos acciones y una pregunta antes de borrar nada</caption>
+      <caption xml:lang="fr">Deux actions, et une question avant toute suppression</caption>
+      <caption xml:lang="it">Due azioni e una domanda prima di eliminare qualcosa</caption>
+      <caption xml:lang="nl">Twee acties, en een vraag voordat er iets wordt verwijderd</caption>
+      <caption xml:lang="pl">Dwie akcje i pytanie, zanim cokolwiek zostanie usunięte</caption>
+      <caption xml:lang="pt-BR">Duas ações e uma pergunta antes de apagar qualquer coisa</caption>
+      <caption xml:lang="ru">Два действия и вопрос, прежде чем что-то удалить</caption>
+      <caption xml:lang="uk">Дві дії й запитання, перш ніж щось вилучити</caption>
+      <caption xml:lang="zh-CN">两个操作，以及删除任何内容前的一次询问</caption>
+    </screenshot>
+  </screenshots>
+
+  <launchable type="desktop-id">io.github.marcelogomes90.cosmic-ext-applet-trash.desktop</launchable>
+
+  <url type="homepage">https://github.com/marcelogomes90/cosmic-ext-applet-trash</url>
+  <url type="bugtracker">https://github.com/marcelogomes90/cosmic-ext-applet-trash/issues</url>
+  <url type="help">https://github.com/marcelogomes90/cosmic-ext-applet-trash#readme</url>
+  <url type="contact">https://github.com/marcelogomes90/cosmic-ext-applet-trash/issues</url>
+  <url type="vcs-browser">https://github.com/marcelogomes90/cosmic-ext-applet-trash</url>
+
+  <provides>
+    <id>com.system76.CosmicApplet</id>
+    <binary>cosmic-ext-applet-trash</binary>
+  </provides>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </supports>
+
+  <categories>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>COSMIC</keyword>
+    <keyword>Applet</keyword>
+    <keyword>Trash</keyword>
+    <keyword>Bin</keyword>
+    <keyword>Wastebasket</keyword>
+    <keyword>Delete</keyword>
+    <keyword>Empty</keyword>
+    <keyword>Files</keyword>
+    <keyword xml:lang="cs">COSMIC</keyword>
+    <keyword xml:lang="cs">Applet</keyword>
+    <keyword xml:lang="cs">Koš</keyword>
+    <keyword xml:lang="cs">Odpadky</keyword>
+    <keyword xml:lang="cs">Smazat</keyword>
+    <keyword xml:lang="cs">Vysypat</keyword>
+    <keyword xml:lang="cs">Soubory</keyword>
+    <keyword xml:lang="de">COSMIC</keyword>
+    <keyword xml:lang="de">Applet</keyword>
+    <keyword xml:lang="de">Papierkorb</keyword>
+    <keyword xml:lang="de">Müll</keyword>
+    <keyword xml:lang="de">Löschen</keyword>
+    <keyword xml:lang="de">Leeren</keyword>
+    <keyword xml:lang="de">Dateien</keyword>
+    <keyword xml:lang="es">COSMIC</keyword>
+    <keyword xml:lang="es">Applet</keyword>
+    <keyword xml:lang="es">Papelera</keyword>
+    <keyword xml:lang="es">Basura</keyword>
+    <keyword xml:lang="es">Borrar</keyword>
+    <keyword xml:lang="es">Vaciar</keyword>
+    <keyword xml:lang="es">Archivos</keyword>
+    <keyword xml:lang="fr">COSMIC</keyword>
+    <keyword xml:lang="fr">Applet</keyword>
+    <keyword xml:lang="fr">Corbeille</keyword>
+    <keyword xml:lang="fr">Poubelle</keyword>
+    <keyword xml:lang="fr">Supprimer</keyword>
+    <keyword xml:lang="fr">Vider</keyword>
+    <keyword xml:lang="fr">Fichiers</keyword>
+    <keyword xml:lang="it">COSMIC</keyword>
+    <keyword xml:lang="it">Applet</keyword>
+    <keyword xml:lang="it">Cestino</keyword>
+    <keyword xml:lang="it">Rifiuti</keyword>
+    <keyword xml:lang="it">Eliminare</keyword>
+    <keyword xml:lang="it">Svuotare</keyword>
+    <keyword xml:lang="it">File</keyword>
+    <keyword xml:lang="nl">COSMIC</keyword>
+    <keyword xml:lang="nl">Applet</keyword>
+    <keyword xml:lang="nl">Prullenbak</keyword>
+    <keyword xml:lang="nl">Afval</keyword>
+    <keyword xml:lang="nl">Verwijderen</keyword>
+    <keyword xml:lang="nl">Leegmaken</keyword>
+    <keyword xml:lang="nl">Bestanden</keyword>
+    <keyword xml:lang="pl">COSMIC</keyword>
+    <keyword xml:lang="pl">Applet</keyword>
+    <keyword xml:lang="pl">Kosz</keyword>
+    <keyword xml:lang="pl">Śmieci</keyword>
+    <keyword xml:lang="pl">Usuń</keyword>
+    <keyword xml:lang="pl">Opróżnij</keyword>
+    <keyword xml:lang="pl">Pliki</keyword>
+    <keyword xml:lang="pt-BR">COSMIC</keyword>
+    <keyword xml:lang="pt-BR">Applet</keyword>
+    <keyword xml:lang="pt-BR">Lixeira</keyword>
+    <keyword xml:lang="pt-BR">Lixo</keyword>
+    <keyword xml:lang="pt-BR">Excluir</keyword>
+    <keyword xml:lang="pt-BR">Esvaziar</keyword>
+    <keyword xml:lang="pt-BR">Arquivos</keyword>
+    <keyword xml:lang="ru">COSMIC</keyword>
+    <keyword xml:lang="ru">Applet</keyword>
+    <keyword xml:lang="ru">Корзина</keyword>
+    <keyword xml:lang="ru">Мусор</keyword>
+    <keyword xml:lang="ru">Удалить</keyword>
+    <keyword xml:lang="ru">Очистить</keyword>
+    <keyword xml:lang="ru">Файлы</keyword>
+    <keyword xml:lang="uk">COSMIC</keyword>
+    <keyword xml:lang="uk">Applet</keyword>
+    <keyword xml:lang="uk">Смітник</keyword>
+    <keyword xml:lang="uk">Сміття</keyword>
+    <keyword xml:lang="uk">Вилучити</keyword>
+    <keyword xml:lang="uk">Очистити</keyword>
+    <keyword xml:lang="uk">Файли</keyword>
+    <keyword xml:lang="zh-CN">COSMIC</keyword>
+    <keyword xml:lang="zh-CN">Applet</keyword>
+    <keyword xml:lang="zh-CN">回收站</keyword>
+    <keyword xml:lang="zh-CN">垃圾桶</keyword>
+    <keyword xml:lang="zh-CN">删除</keyword>
+    <keyword xml:lang="zh-CN">清空</keyword>
+    <keyword xml:lang="zh-CN">文件</keyword>
+  </keywords>
+
+  <releases>
+    <release type="stable" version="1.0.0" date="2026-10-04">
+      <description>
+        <p>The first release.</p>
+        <ul>
+          <li>A trash button for the COSMIC panel and dock, showing whether the trash is empty or full</li>
+          <li>Opens the trash in the file manager, or empties it after asking</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>
