@@ -77,21 +77,28 @@ The panel icon has to stay honest without the popup being open, so a `notify` wa
 The popup also re-probes when it opens. The watcher does not follow volumes mounted after startup,
 and the moment the user is looking is the moment it matters.
 
-## Opening the trash
+## Opening the trash, and why it runs on the host
 
-There is no single call that works everywhere, so `src/trash/open.rs` tries three, in order:
+There is no single call that works everywhere, so `src/trash/open.rs` tries in order:
 
 1. `cosmic-files --trash`, which is exactly what COSMIC Files' own trash applet runs. On COSMIC this
-   is the right answer and the first attempt succeeds.
-2. `xdg-open trash:///`, the FreeDesktop URI. This is what works on desktops that register an
-   `x-scheme-handler/trash` handler, and it is what will start working on COSMIC the day it
-   registers one.
+   is the right answer and the first attempt succeeds. It is only attempted after
+   `command -v cosmic-files` says it exists, because a long-lived window gives us no useful exit
+   code to fall back on.
+2. `xdg-open trash:///`, the FreeDesktop URI, for desktops that register an
+   `x-scheme-handler/trash` handler.
 3. `xdg-open <trash>/files`, the directory itself. It shows the trashed files without restore, which
-   is why it is last — but it is the one that works inside the Flatpak sandbox, where neither of the
-   first two can.
+   is why it is last.
 
-Only the `xdg-open` attempts are waited on. `cosmic-files` may become a long-lived window, so its
-spawn succeeding is the whole signal we get.
+**Every one of those runs through `flatpak-spawn --host` when sandboxed**, and that is the whole
+reason the applet asks for `--talk-name=org.freedesktop.Flatpak`. Two things break otherwise:
+COSMIC Files does not exist inside the sandbox at all, and — worse — `xdg-open trash:///` inside the
+sandbox goes to the OpenURI portal, which answers an unhandled scheme by showing the user an
+application chooser and then **returning success**. A fallback chain cannot fall back through a
+step that lies about having worked. On the host, the exit code means what it says.
+
+The last resort is a plain in-sandbox `xdg-open` on the trash directory, for the case where
+`flatpak-spawn` itself is refused. It is the only step that cannot fail for want of a permission.
 
 ## The panel button is hand-rolled
 
@@ -105,6 +112,20 @@ Which icon to use is `panel_type != Dock` — the only thing the applet asks abo
 shows applications as full-colour icons, the panel shows status as symbolic glyphs, and a trash
 applet is both depending on where it is put. `PanelType::Other`, which includes a user-created panel
 and the applet run outside a panel at all, takes the symbolic branch.
+
+## Left click acts, right click offers
+
+The panel button is a `button::custom` wrapped in a `mouse_area`: the button's `on_press` opens the
+trash, and the mouse area's `on_right_press` opens the popup. A `button` ignores right presses, so
+the event reaches the wrapper without a fight.
+
+That is why the desktop entry has **no** `X-CosmicHoverPopup`. Sweeping the pointer across the
+applet while another popup is open would otherwise open a context menu nobody asked for — right for
+a status applet whose popup *is* its content, wrong for a context menu.
+
+The popup keeps `Open Trash` as its first row even though a left click already does it: a context
+menu that offers only the destructive half of what the applet does reads as if opening were
+unavailable.
 
 ## The question replaces the menu
 

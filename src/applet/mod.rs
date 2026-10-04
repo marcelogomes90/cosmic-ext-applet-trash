@@ -238,7 +238,8 @@ impl Application for Trash {
     }
 
     fn view(&self) -> Element<'_, Message> {
-        let button = self.panel_button().on_press(Message::TogglePopup);
+        let button = widget::mouse_area(self.panel_button().on_press(Message::OpenTrash))
+            .on_right_press(Message::TogglePopup);
 
         widget::autosize::autosize(button, popup::PANEL_ID.clone())
             .limits(popup::panel_limits(

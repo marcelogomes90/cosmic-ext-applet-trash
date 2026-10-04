@@ -11,9 +11,10 @@ The trash, one click away, for the [COSMIC](https://system76.com/cosmic) desktop
 Trash puts the wastebasket where you can actually reach it. It sits in the COSMIC panel or dock as
 a single icon that tells you, at a glance, whether anything is waiting to be thrown out.
 
-Clicking it opens two actions and nothing else: open the trash in your file manager, or empty it.
-Emptying asks first, because it cannot be undone. There is no file list, no settings and nothing to
-configure — it uses the desktop's own trash and the icons your icon theme already provides.
+A left click opens the trash in your file manager. A right click offers the same, plus emptying it
+— and emptying asks first, because it cannot be undone. There is no file list, no settings and
+nothing to configure: it uses the desktop's own trash and the icons your icon theme already
+provides.
 
 <img src="resources/screenshots/desktop.png" alt="Trash in the COSMIC panel" />
 
@@ -21,8 +22,9 @@ configure — it uses the desktop's own trash and the icons your icon theme alre
 
 - Shows an empty or a full bin, and keeps up as the trash changes
 - Uses the panel's symbolic glyph, and the dock's full-colour icon, like every native applet
-- Opens the trash in your usual file manager
-- Empties the trash, after asking
+- Left click opens the trash in your usual file manager
+- Right click offers to empty it, disabled while the trash is already empty
+- Emptying asks before it deletes anything
 - Follows the FreeDesktop trash specification every application already shares
 - Twelve languages
 
@@ -46,13 +48,13 @@ just install-user      # ~/.local, no root
 sudo just install      # /usr
 ```
 
-Then add **Trash** in Settings → Desktop → Panel → Applets.
+Then add **Trash** in Settings → Desktop → Dock → Applets.
 
 ## Developing
 
 ```sh
 just verify     # formatting, clippy, layering, tests, desktop entry and metainfo
-just run-dump   # read the trash with no display server; --empty purges it
+just run-dump   # read the trash with no display server; --open and --empty act on it
 ```
 
 `ARCHITECTURE.md` explains how the applet is put together and why the small awkward parts are the

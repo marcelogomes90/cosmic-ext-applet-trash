@@ -27,7 +27,7 @@
 
   <description>
     <p>Trash puts the wastebasket where you can actually reach it. It sits in the COSMIC panel or dock as a single icon that tells you, at a glance, whether anything is waiting to be thrown out.</p>
-    <p>Clicking it opens two actions and nothing else: open the trash in your file manager, or empty it. Emptying asks first, because it cannot be undone. There is no file list, no settings and nothing to configure — it uses the desktop&#x27;s own trash and the icons your icon theme already provides.</p>
+    <p>A left click opens the trash in your file manager. A right click offers the same, plus emptying it — and emptying asks first, because it cannot be undone. There is no file list, no settings and nothing to configure: it uses the desktop&#x27;s own trash and the icons your icon theme already provides.</p>
     <ul>
       <li>An icon that shows whether the trash is empty or full</li>
       <li>Opens the trash in your usual file manager</li>
@@ -35,7 +35,7 @@
       <li>Uses the FreeDesktop trash every application already shares</li>
     </ul>
     <p xml:lang="cs">Trash dává koš tam, kam na něj skutečně dosáhnete. Sedí v panelu nebo doku COSMIC jako jediná ikona, která na první pohled prozradí, jestli něco čeká na vyhození.</p>
-    <p xml:lang="cs">Kliknutí otevře dvě akce a nic víc: otevřít koš ve správci souborů, nebo ho vysypat. Vysypání se nejdřív zeptá, protože se nedá vzít zpět. Žádný seznam souborů, žádné nastavení a nic ke konfiguraci — používá koš samotného systému a ikony, které už váš motiv ikon nabízí.</p>
+    <p xml:lang="cs">Levé kliknutí otevře koš ve správci souborů. Pravé nabídne totéž a navíc vysypání — a vysypání se nejdřív zeptá, protože se nedá vzít zpět. Žádný seznam souborů, žádné nastavení a nic ke konfiguraci: používá koš samotného systému a ikony, které už váš motiv ikon nabízí.</p>
     <ul>
       <li xml:lang="cs">Ikona, která ukáže, jestli je koš prázdný, nebo plný</li>
       <li xml:lang="cs">Otevře koš ve vašem obvyklém správci souborů</li>
@@ -43,7 +43,7 @@
       <li xml:lang="cs">Používá koš podle FreeDesktopu, který sdílí všechny aplikace</li>
     </ul>
     <p xml:lang="de">Trash bringt den Papierkorb dorthin, wo du ihn wirklich erreichst. Er sitzt als einzelnes Symbol im COSMIC-Panel oder -Dock und zeigt auf einen Blick, ob etwas auf das Wegwerfen wartet.</p>
-    <p xml:lang="de">Ein Klick öffnet zwei Aktionen und sonst nichts: den Papierkorb im Dateimanager öffnen oder ihn leeren. Das Leeren fragt vorher nach, denn es lässt sich nicht rückgängig machen. Keine Dateiliste, keine Einstellungen und nichts einzurichten – es nutzt den Papierkorb des Systems und die Symbole, die dein Symbolthema ohnehin mitbringt.</p>
+    <p xml:lang="de">Ein Linksklick öffnet den Papierkorb im Dateimanager. Ein Rechtsklick bietet dasselbe an und zusätzlich das Leeren – und das Leeren fragt vorher nach, denn es lässt sich nicht rückgängig machen. Keine Dateiliste, keine Einstellungen und nichts einzurichten: Es nutzt den Papierkorb des Systems und die Symbole, die dein Symbolthema ohnehin mitbringt.</p>
     <ul>
       <li xml:lang="de">Ein Symbol, das zeigt, ob der Papierkorb leer oder voll ist</li>
       <li xml:lang="de">Öffnet den Papierkorb in deinem gewohnten Dateimanager</li>
@@ -51,7 +51,7 @@
       <li xml:lang="de">Nutzt den FreeDesktop-Papierkorb, den alle Anwendungen teilen</li>
     </ul>
     <p xml:lang="es">Trash pone la papelera donde de verdad puedes alcanzarla. Vive en el panel o el dock de COSMIC como un único icono que te dice, de un vistazo, si hay algo esperando a tirarse.</p>
-    <p xml:lang="es">Al pulsarlo aparecen dos acciones y nada más: abrir la papelera en tu gestor de archivos o vaciarla. Vaciarla pregunta antes, porque no se puede deshacer. Sin lista de archivos, sin ajustes y sin nada que configurar: usa la papelera del propio escritorio y los iconos que ya trae tu tema.</p>
+    <p xml:lang="es">Un clic izquierdo abre la papelera en tu gestor de archivos. Un clic derecho ofrece lo mismo y además vaciarla, y vaciarla pregunta antes, porque no se puede deshacer. Sin lista de archivos, sin ajustes y sin nada que configurar: usa la papelera del propio escritorio y los iconos que ya trae tu tema.</p>
     <ul>
       <li xml:lang="es">Un icono que muestra si la papelera está vacía o llena</li>
       <li xml:lang="es">Abre la papelera en tu gestor de archivos de siempre</li>
@@ -59,7 +59,7 @@
       <li xml:lang="es">Usa la papelera de FreeDesktop que ya comparten todas las aplicaciones</li>
     </ul>
     <p xml:lang="fr">Trash met la corbeille là où vous pouvez vraiment l’atteindre. Elle vit dans le panneau ou le dock COSMIC sous la forme d’une seule icône qui indique, d’un coup d’œil, si quelque chose attend d’être jeté.</p>
-    <p xml:lang="fr">Un clic ouvre deux actions et rien d’autre : ouvrir la corbeille dans votre gestionnaire de fichiers, ou la vider. Le vidage demande confirmation, car il est irréversible. Pas de liste de fichiers, pas de réglages et rien à configurer : il utilise la corbeille du bureau et les icônes que votre thème fournit déjà.</p>
+    <p xml:lang="fr">Un clic gauche ouvre la corbeille dans votre gestionnaire de fichiers. Un clic droit propose la même chose et, en plus, de la vider — et le vidage demande confirmation, car il est irréversible. Pas de liste de fichiers, pas de réglages et rien à configurer : il utilise la corbeille du bureau et les icônes que votre thème fournit déjà.</p>
     <ul>
       <li xml:lang="fr">Une icône qui indique si la corbeille est vide ou pleine</li>
       <li xml:lang="fr">Ouvre la corbeille dans votre gestionnaire de fichiers habituel</li>
@@ -67,7 +67,7 @@
       <li xml:lang="fr">Utilise la corbeille FreeDesktop que toutes les applications partagent</li>
     </ul>
     <p xml:lang="it">Trash mette il cestino dove puoi davvero raggiungerlo. Vive nel pannello o nel dock di COSMIC come una sola icona che dice, a colpo d’occhio, se c’è qualcosa in attesa di essere buttato.</p>
-    <p xml:lang="it">Un clic apre due azioni e nient’altro: aprire il cestino nel gestore di file o svuotarlo. Lo svuotamento chiede prima, perché non si può annullare. Nessun elenco di file, nessuna impostazione e niente da configurare: usa il cestino del sistema e le icone che il tuo tema già fornisce.</p>
+    <p xml:lang="it">Un clic sinistro apre il cestino nel gestore di file. Un clic destro offre la stessa cosa e in più di svuotarlo — e lo svuotamento chiede prima, perché non si può annullare. Nessun elenco di file, nessuna impostazione e niente da configurare: usa il cestino del sistema e le icone che il tuo tema già fornisce.</p>
     <ul>
       <li xml:lang="it">Un’icona che mostra se il cestino è vuoto o pieno</li>
       <li xml:lang="it">Apre il cestino nel tuo solito gestore di file</li>
@@ -75,7 +75,7 @@
       <li xml:lang="it">Usa il cestino FreeDesktop che tutte le applicazioni già condividono</li>
     </ul>
     <p xml:lang="nl">Trash zet de prullenbak waar je er echt bij kunt. Hij staat als één pictogram op het COSMIC-paneel of in het dock en laat in één oogopslag zien of er iets wacht om weggegooid te worden.</p>
-    <p xml:lang="nl">Eén klik toont twee acties en verder niets: de prullenbak openen in je bestandsbeheerder of hem leegmaken. Leegmaken vraagt het eerst, want het kan niet ongedaan worden gemaakt. Geen bestandslijst, geen instellingen en niets in te stellen — het gebruikt de prullenbak van het bureaublad zelf en de pictogrammen die je thema al levert.</p>
+    <p xml:lang="nl">Een linkerklik opent de prullenbak in je bestandsbeheerder. Een rechterklik biedt hetzelfde aan, plus leegmaken — en leegmaken vraagt het eerst, want het kan niet ongedaan worden gemaakt. Geen bestandslijst, geen instellingen en niets in te stellen: het gebruikt de prullenbak van het bureaublad zelf en de pictogrammen die je thema al levert.</p>
     <ul>
       <li xml:lang="nl">Een pictogram dat laat zien of de prullenbak leeg of vol is</li>
       <li xml:lang="nl">Opent de prullenbak in je gebruikelijke bestandsbeheerder</li>
@@ -83,7 +83,7 @@
       <li xml:lang="nl">Gebruikt de FreeDesktop-prullenbak die alle programma&#x27;s al delen</li>
     </ul>
     <p xml:lang="pl">Trash umieszcza kosz tam, gdzie naprawdę można po niego sięgnąć. Siedzi w panelu lub doku COSMIC jako jedna ikona, która od razu pokazuje, czy coś czeka na wyrzucenie.</p>
-    <p xml:lang="pl">Kliknięcie otwiera dwie akcje i nic więcej: otworzyć kosz w menedżerze plików albo go opróżnić. Opróżnianie najpierw pyta, bo nie da się go cofnąć. Żadnej listy plików, żadnych ustawień i niczego do konfigurowania — korzysta z kosza samego środowiska i z ikon, które już daje twój motyw.</p>
+    <p xml:lang="pl">Lewe kliknięcie otwiera kosz w menedżerze plików. Prawe proponuje to samo, a do tego opróżnienie — i opróżnianie najpierw pyta, bo nie da się go cofnąć. Żadnej listy plików, żadnych ustawień i niczego do konfigurowania: korzysta z kosza samego środowiska i z ikon, które już daje twój motyw.</p>
     <ul>
       <li xml:lang="pl">Ikona pokazująca, czy kosz jest pusty, czy pełny</li>
       <li xml:lang="pl">Otwiera kosz w twoim zwykłym menedżerze plików</li>
@@ -91,7 +91,7 @@
       <li xml:lang="pl">Korzysta z kosza FreeDesktop, który dzielą już wszystkie programy</li>
     </ul>
     <p xml:lang="pt-BR">O Trash coloca a lixeira onde dá para alcançá-la de verdade. Ele fica no painel ou no dock do COSMIC como um único ícone que mostra, de relance, se há algo esperando para ser jogado fora.</p>
-    <p xml:lang="pt-BR">Um clique abre duas ações e mais nada: abrir a lixeira no gerenciador de arquivos ou esvaziá-la. Esvaziar pergunta antes, porque não dá para desfazer. Sem lista de arquivos, sem configurações e sem nada para ajustar — ele usa a lixeira do próprio sistema e os ícones que o seu tema já oferece.</p>
+    <p xml:lang="pt-BR">Um clique esquerdo abre a lixeira no gerenciador de arquivos. Um clique direito oferece o mesmo e mais esvaziá-la — e esvaziar pergunta antes, porque não dá para desfazer. Sem lista de arquivos, sem configurações e sem nada para ajustar: ele usa a lixeira do próprio sistema e os ícones que o seu tema já oferece.</p>
     <ul>
       <li xml:lang="pt-BR">Um ícone que mostra se a lixeira está vazia ou cheia</li>
       <li xml:lang="pt-BR">Abre a lixeira no seu gerenciador de arquivos de sempre</li>
@@ -99,7 +99,7 @@
       <li xml:lang="pt-BR">Usa a lixeira FreeDesktop que todos os aplicativos já compartilham</li>
     </ul>
     <p xml:lang="ru">Trash помещает корзину туда, где до неё действительно можно дотянуться. Он живёт на панели или в доке COSMIC как один значок, по которому сразу видно, ждёт ли что-нибудь выброса.</p>
-    <p xml:lang="ru">Щелчок открывает два действия и ничего больше: открыть корзину в файловом менеджере или очистить её. Очистка сначала спрашивает, потому что её не отменить. Ни списка файлов, ни настроек, ни чего-либо для настройки — используется корзина самой системы и значки, которые уже есть в вашей теме.</p>
+    <p xml:lang="ru">Щелчок левой кнопкой открывает корзину в файловом менеджере. Правая предлагает то же самое и вдобавок очистку — а очистка сначала спрашивает, потому что её не отменить. Ни списка файлов, ни настроек, ни чего-либо для настройки: используется корзина самой системы и значки, которые уже есть в вашей теме.</p>
     <ul>
       <li xml:lang="ru">Значок, показывающий, пуста корзина или полна</li>
       <li xml:lang="ru">Открывает корзину в вашем привычном файловом менеджере</li>
@@ -107,7 +107,7 @@
       <li xml:lang="ru">Использует корзину FreeDesktop, общую для всех приложений</li>
     </ul>
     <p xml:lang="uk">Trash розміщує смітник там, де до нього справді можна дотягнутися. Він живе на панелі або в доку COSMIC як один значок, за яким одразу видно, чи щось чекає на викидання.</p>
-    <p xml:lang="uk">Клацання відкриває дві дії й більше нічого: відкрити смітник у файловому менеджері або очистити його. Очищення спершу запитує, бо його не скасувати. Жодного списку файлів, жодних налаштувань і нічого налаштовувати — використовується смітник самої системи та значки, які вже є у вашій темі.</p>
+    <p xml:lang="uk">Клацання лівою кнопкою відкриває смітник у файловому менеджері. Права пропонує те саме й додатково очищення — а очищення спершу запитує, бо його не скасувати. Жодного списку файлів, жодних налаштувань і нічого налаштовувати: використовується смітник самої системи та значки, які вже є у вашій темі.</p>
     <ul>
       <li xml:lang="uk">Значок, який показує, порожній смітник чи повний</li>
       <li xml:lang="uk">Відкриває смітник у вашому звичному файловому менеджері</li>
@@ -115,7 +115,7 @@
       <li xml:lang="uk">Використовує смітник FreeDesktop, спільний для всіх програм</li>
     </ul>
     <p xml:lang="zh-CN">Trash 把回收站放在你真正够得着的地方。它以一个图标的形式待在 COSMIC 面板或程序坞里，一眼就能看出是否有东西等着被丢掉。</p>
-    <p xml:lang="zh-CN">点击只会打开两个操作，别无其他：在文件管理器中打开回收站，或者清空它。清空会先询问，因为这一步无法撤销。没有文件列表，没有设置，也没有任何需要配置的东西——它使用系统自己的回收站和你的图标主题已经提供的图标。</p>
+    <p xml:lang="zh-CN">左键点击在文件管理器中打开回收站。右键点击提供同样的操作，外加清空——清空会先询问，因为这一步无法撤销。没有文件列表，没有设置，也没有任何需要配置的东西：它使用系统自己的回收站和你的图标主题已经提供的图标。</p>
     <ul>
       <li xml:lang="zh-CN">一个图标，显示回收站是空的还是满的</li>
       <li xml:lang="zh-CN">在你惯用的文件管理器中打开回收站</li>
@@ -277,7 +277,7 @@
         <p>The first release.</p>
         <ul>
           <li>A trash button for the COSMIC panel and dock, showing whether the trash is empty or full</li>
-          <li>Opens the trash in the file manager, or empties it after asking</li>
+          <li>Left click opens the trash; right click offers to empty it, after asking</li>
         </ul>
       </description>
     </release>
