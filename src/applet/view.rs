@@ -4,11 +4,17 @@ use cosmic::iced::advanced::text::{Ellipsize, EllipsizeHeightLimit};
 use cosmic::{Element, widget};
 
 use super::message::Message;
-use super::{Trash, popup};
+use super::{Trash, popup, style};
 use crate::fl;
 
 pub fn popup(app: &Trash) -> Element<'_, Message> {
-    let body: Element<'_, Message> = if app.asking() { question() } else { menu(app) };
+    let dock = app.on_a_dock();
+
+    let body: Element<'_, Message> = if app.asking() {
+        question(dock)
+    } else {
+        menu(app, dock)
+    };
 
     app.applet()
         .popup_container(
@@ -21,12 +27,12 @@ pub fn popup(app: &Trash) -> Element<'_, Message> {
         .into()
 }
 
-fn menu(app: &Trash) -> Element<'_, Message> {
+fn menu(app: &Trash, dock: bool) -> Element<'_, Message> {
     let emptyable = !app.status().is_empty();
 
-    let open = menu_button(fl!("open-trash")).on_press(Message::OpenTrash);
+    let open = row(fl!("open-trash"), true, dock).on_press(Message::OpenTrash);
 
-    let empty = menu_button(fl!("empty-trash"))
+    let empty = row(fl!("empty-trash"), emptyable, dock)
         .on_press_maybe(emptyable.then_some(Message::ConfirmEmpty(true)));
 
     widget::column::with_children(vec![
@@ -37,17 +43,26 @@ fn menu(app: &Trash) -> Element<'_, Message> {
     .into()
 }
 
-fn menu_button<'a>(label: String) -> widget::Button<'a, Message> {
-    widget::button::custom(
-        widget::text::body(label).ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1))),
-    )
-    .height(20 + 2 * cosmic::theme::spacing().space_xxs)
-    .class(cosmic::theme::Button::MenuItem)
-    .padding(applet::menu_control_padding())
-    .width(Length::Fill)
+fn row<'a>(label: String, enabled: bool, dock: bool) -> widget::Button<'a, Message> {
+    let mut label =
+        widget::text::body(label).ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)));
+
+    if !enabled && !dock {
+        label = label.class(style::dimmed_text());
+    }
+
+    if dock {
+        widget::button::custom(label)
+            .height(20 + 2 * cosmic::theme::spacing().space_xxs)
+            .class(cosmic::theme::Button::MenuItem)
+            .padding(applet::menu_control_padding())
+            .width(Length::Fill)
+    } else {
+        applet::menu_button(label)
+    }
 }
 
-fn question<'a>() -> Element<'a, Message> {
+fn question<'a>(dock: bool) -> Element<'a, Message> {
     let spacing = cosmic::theme::spacing();
 
     let words = widget::column::with_children(vec![
@@ -69,10 +84,15 @@ fn question<'a>() -> Element<'a, Message> {
     ])
     .spacing(spacing.space_xxs);
 
-    widget::container(
+    let card = widget::container(
         widget::column::with_children(vec![words.into(), answers.into()]).spacing(spacing.space_l),
     )
     .padding(spacing.space_m)
-    .width(Length::Fill)
-    .into()
+    .width(Length::Fill);
+
+    if dock {
+        card.style(style::card).into()
+    } else {
+        card.into()
+    }
 }

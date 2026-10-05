@@ -62,6 +62,10 @@ impl Trash {
         &self.core.applet
     }
 
+    pub fn on_a_dock(&self) -> bool {
+        is_dock(&self.core.applet.panel_type)
+    }
+
     fn open_popup(&mut self) -> Task<Message> {
         let id = window::Id::unique();
         self.popup = PopupState::Open { id, closing: false };

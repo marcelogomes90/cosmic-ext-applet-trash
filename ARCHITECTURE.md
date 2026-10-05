@@ -163,22 +163,50 @@ The tooltip naming the applet is wrapped on **only** when `panel_type == Dock`. 
 icon it holds on hover and an applet gets none of that for free; a panel names nothing, so a tooltip
 there would be noise.
 
+## The popup borrows whichever menu it sits beside
+
+COSMIC has **two** menu idioms, and which one is right depends on the host:
+
+- The **dock**'s app list fills each row with its own block of colour: `button::custom` with
+  `Button::MenuItem`, `menu_control_padding()`, full width, height `20 + 2 * space_xxs`.
+  `MenuItem` resolves to `background(transparent).component`.
+- **Panel** applets do not: `cosmic::applet::menu_button` uses `Button::AppletMenu`, which is
+  near-transparent and lets the popup's own `background(transparent).base` show through.
+
+Both backgrounds carry the same alpha — measured, not assumed: 1.0 opaque, 0.761 when the theme is
+frosted. The two idioms differ in *colour*, not in translucency, so using the dock's on a panel (or
+the reverse) reads as the wrong material rather than as a blur problem. Using one everywhere was
+tried and was wrong on whichever host it was not taken from, in both directions.
+
+`row()` picks the class from the host and `question()` follows it: on a dock the question sits on a
+`style::card` filled with the same `component` colour as the rows, on a panel it sits plain on the
+popup's own surface. Whichever face the popup is showing, it is made of what its neighbours are made
+of.
+
+`AppletMenu` discards the `on_disabled` colour `Catalog::disabled` works out, so the panel branch
+dims its own label; `MenuItem` takes its colours from `color()` and dims itself.
+
+The rest comes from `cosmic-app-list/src/app.rs` unchanged:
+`core.applet.popup_container(container(content).padding(1))` paints the surface — hand-rolling an
+equivalent drifted twice, and the helper is the only way to be sure the popup is whatever the native
+ones are, including how it frosts. `.limits(..)` caps it at **300 px**, the figure app-list
+overrides the helper's own 360 with. The separator is `divider::horizontal::light()`, whose
+`FillMode::Padded(8)` *is* the inset; a `default()` divider in a padded container is the wrong way
+to the same look and gets the amount wrong.
+
 ## The question is the popup's other face
 
 COSMIC Files asks this same question, and the two should read as one question. It exposes no D-Bus
 interface and no command-line flag to raise its own dialog, so the question has to be asked here.
 
 `widget::dialog()` is the obvious way to ask it and is the wrong one. It paints its own card on the
-**primary** layer, with a border and a drop shadow of its own; the popup's `style::surface` is the
+**primary** layer, with a border and a drop shadow of its own, while the popup's surface is the
 **background** layer. Side by side the two read as different windows, and the card covers the
-frosted background the panel gives the popup — switching to the question looked like switching
-applications. Stacking it *inside* `style::surface` is worse still: two backgrounds, and the frosted
-setting silently stops working.
+frosted background the panel gives the popup.
 
-So the popup has one surface and two faces. `question()` reproduces the dialog's *contents* —
-`title3` heading, `space_xxs` gap, body text, a right-aligned `suggested`/`standard` pair, the
-`space_l` and `space_m` spacing scale — and nothing of its chrome. What changes between the menu and
-the question is what is inside the popup, never what the popup is made of.
+So `question()` reproduces the dialog's *contents* — `title3` heading, `space_xxs` gap, body text, a
+right-aligned `suggested`/`standard` pair, the `space_l` and `space_m` spacing scale — and nothing
+of its chrome.
 
 **It is not a surface of its own, and that was tried.** An overlay layer surface with
 `KeyboardInteractivity::Exclusive` is the other way to ask, and it is how `cosmic-applet-power` once
