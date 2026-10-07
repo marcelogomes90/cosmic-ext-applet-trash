@@ -16,7 +16,7 @@ A left click opens the trash in your file manager. A right click offers the same
 dismiss by looking away is not a question. There is no file list, no settings and nothing to
 configure: it uses the desktop's own trash and the icon your icon theme already provides.
 
-<img src="resources/screenshots/desktop.png" alt="Trash in the COSMIC panel" />
+<img src="resources/screenshots/desktop.png" alt="Trash at the end of the COSMIC dock" />
 
 ## What it does
 

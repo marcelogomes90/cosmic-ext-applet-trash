@@ -127,33 +127,63 @@
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/desktop.png</image>
-      <caption>The applet in the COSMIC panel, with something waiting in the trash</caption>
-      <caption xml:lang="cs">Applet v panelu COSMIC, s něčím, co čeká v koši</caption>
-      <caption xml:lang="de">Das Applet im COSMIC-Panel, mit etwas im Papierkorb</caption>
-      <caption xml:lang="es">El applet en el panel de COSMIC, con algo esperando en la papelera</caption>
-      <caption xml:lang="fr">L’applet dans le panneau COSMIC, avec quelque chose dans la corbeille</caption>
-      <caption xml:lang="it">L’applet nel pannello di COSMIC, con qualcosa in attesa nel cestino</caption>
-      <caption xml:lang="nl">Het applet op het COSMIC-paneel, met iets in de prullenbak</caption>
-      <caption xml:lang="pl">Aplet w panelu COSMIC, z czymś czekającym w koszu</caption>
-      <caption xml:lang="pt-BR">O applet no painel do COSMIC, com algo esperando na lixeira</caption>
-      <caption xml:lang="ru">Апплет на панели COSMIC, когда в корзине что-то есть</caption>
-      <caption xml:lang="uk">Аплет на панелі COSMIC, коли у смітнику щось є</caption>
-      <caption xml:lang="zh-CN">COSMIC 面板中的小程序，回收站里有东西在等着</caption>
+      <caption>The applet at the end of the dock, naming itself on hover</caption>
+      <caption xml:lang="cs">Applet na konci doku, který se při najetí myší představí</caption>
+      <caption xml:lang="de">Das Applet am Ende des Docks, das sich beim Überfahren benennt</caption>
+      <caption xml:lang="es">El applet al final del dock, que dice su nombre al pasar el ratón</caption>
+      <caption xml:lang="fr">L’applet au bout du dock, qui se nomme au survol</caption>
+      <caption xml:lang="it">L’applet in fondo al dock, che si presenta al passaggio del mouse</caption>
+      <caption xml:lang="nl">Het applet aan het eind van het dock, dat zijn naam toont bij aanwijzen</caption>
+      <caption xml:lang="pl">Aplet na końcu doku, który podaje swoją nazwę po najechaniu</caption>
+      <caption xml:lang="pt-BR">O applet no fim do dock, dizendo seu nome ao passar o mouse</caption>
+      <caption xml:lang="ru">Апплет в конце дока, называющий себя при наведении</caption>
+      <caption xml:lang="uk">Аплет наприкінці дока, що називає себе при наведенні</caption>
+      <caption xml:lang="zh-CN">程序坞末端的小程序，悬停时显示名称</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/popup.png</image>
-      <caption>Two actions, and a question before anything is deleted</caption>
-      <caption xml:lang="cs">Dvě akce a otázka, než se cokoli smaže</caption>
-      <caption xml:lang="de">Zwei Aktionen und eine Nachfrage, bevor etwas gelöscht wird</caption>
-      <caption xml:lang="es">Dos acciones y una pregunta antes de borrar nada</caption>
-      <caption xml:lang="fr">Deux actions, et une question avant toute suppression</caption>
-      <caption xml:lang="it">Due azioni e una domanda prima di eliminare qualcosa</caption>
-      <caption xml:lang="nl">Twee acties, en een vraag voordat er iets wordt verwijderd</caption>
-      <caption xml:lang="pl">Dwie akcje i pytanie, zanim cokolwiek zostanie usunięte</caption>
-      <caption xml:lang="pt-BR">Duas ações e uma pergunta antes de apagar qualquer coisa</caption>
-      <caption xml:lang="ru">Два действия и вопрос, прежде чем что-то удалить</caption>
-      <caption xml:lang="uk">Дві дії й запитання, перш ніж щось вилучити</caption>
-      <caption xml:lang="zh-CN">两个操作，以及删除任何内容前的一次询问</caption>
+      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/dock-menu.png</image>
+      <caption>A right click on the dock: open the trash, or empty it</caption>
+      <caption xml:lang="cs">Pravé kliknutí v doku: otevřít koš, nebo ho vysypat</caption>
+      <caption xml:lang="de">Ein Rechtsklick im Dock: Papierkorb öffnen oder leeren</caption>
+      <caption xml:lang="es">Un clic derecho en el dock: abrir la papelera o vaciarla</caption>
+      <caption xml:lang="fr">Un clic droit dans le dock : ouvrir la corbeille ou la vider</caption>
+      <caption xml:lang="it">Un clic destro nel dock: aprire il cestino o svuotarlo</caption>
+      <caption xml:lang="nl">Een rechterklik in het dock: de prullenbak openen of leegmaken</caption>
+      <caption xml:lang="pl">Prawe kliknięcie w doku: otworzyć kosz albo go opróżnić</caption>
+      <caption xml:lang="pt-BR">Um clique direito na dock: abrir a lixeira ou esvaziá-la</caption>
+      <caption xml:lang="ru">Правый щелчок в доке: открыть корзину или очистить её</caption>
+      <caption xml:lang="uk">Клацання правою в доку: відкрити смітник або очистити його</caption>
+      <caption xml:lang="zh-CN">在程序坞中右键点击：打开回收站，或清空它</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/confirm.png</image>
+      <caption>Emptying asks first, because it cannot be undone</caption>
+      <caption xml:lang="cs">Vysypání se nejdřív zeptá, protože se nedá vzít zpět</caption>
+      <caption xml:lang="de">Das Leeren fragt vorher nach, denn es lässt sich nicht rückgängig machen</caption>
+      <caption xml:lang="es">Vaciarla pregunta antes, porque no se puede deshacer</caption>
+      <caption xml:lang="fr">Le vidage demande confirmation, car il est irréversible</caption>
+      <caption xml:lang="it">Lo svuotamento chiede prima, perché non si può annullare</caption>
+      <caption xml:lang="nl">Leegmaken vraagt het eerst, want het kan niet ongedaan worden gemaakt</caption>
+      <caption xml:lang="pl">Opróżnianie najpierw pyta, bo nie da się go cofnąć</caption>
+      <caption xml:lang="pt-BR">Esvaziar pergunta antes, porque não dá para desfazer</caption>
+      <caption xml:lang="ru">Очистка сначала спрашивает, потому что её не отменить</caption>
+      <caption xml:lang="uk">Очищення спершу запитує, бо його не скасувати</caption>
+      <caption xml:lang="zh-CN">清空会先询问，因为这一步无法撤销</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/marcelogomes90/cosmic-ext-applet-trash/main/resources/screenshots/panel-menu.png</image>
+      <caption>The same menu on the panel, in the panel&#x27;s own style</caption>
+      <caption xml:lang="cs">Stejná nabídka na panelu, ve stylu samotného panelu</caption>
+      <caption xml:lang="de">Dasselbe Menü im Panel, im Stil des Panels</caption>
+      <caption xml:lang="es">El mismo menú en el panel, con el estilo del panel</caption>
+      <caption xml:lang="fr">Le même menu dans le panneau, dans le style du panneau</caption>
+      <caption xml:lang="it">Lo stesso menu nel pannello, nello stile del pannello</caption>
+      <caption xml:lang="nl">Hetzelfde menu op het paneel, in de stijl van het paneel</caption>
+      <caption xml:lang="pl">To samo menu na panelu, w stylu samego panelu</caption>
+      <caption xml:lang="pt-BR">O mesmo menu no painel, no estilo do próprio painel</caption>
+      <caption xml:lang="ru">То же меню на панели, в стиле самой панели</caption>
+      <caption xml:lang="uk">Те саме меню на панелі, у стилі самої панелі</caption>
+      <caption xml:lang="zh-CN">面板上的同一个菜单，采用面板自己的样式</caption>
     </screenshot>
   </screenshots>
 
