@@ -302,6 +302,15 @@
   </keywords>
 
   <releases>
+    <release type="stable" version="1.0.1" date="2026-10-08">
+      <description>
+        <p>Fixes how the menu looks on the dock.</p>
+        <ul>
+          <li>The menu now shows the theme's frosted glass on the dock, the way it already did on the panel</li>
+          <li>Hovering an entry no longer paints past the menu's rounded corners</li>
+        </ul>
+      </description>
+    </release>
     <release type="stable" version="1.0.0" date="2026-10-06">
       <description>
         <p>The first release.</p>
