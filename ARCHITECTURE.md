@@ -130,17 +130,20 @@ One question, `is_dock`, and three answers hang off it:
   glyphs, and a trash applet is both depending on where it is put.
 - **The tooltip.** The dock names every icon it holds on hover and an applet gets none of that for
   free; a panel names nothing, so a tooltip there would be noise.
+- **The menu row's height.** The dock pins each row to `20 + 2 * space_xxs`, the figure
+  `cosmic-app-list` pins its own context menu to; on a panel the row is whatever
+  `cosmic::applet::menu_button` comes out as. Nothing else about the row differs.
 `PanelType::Other`, which includes a user-created panel and the applet run outside a panel at all,
 is not a dock.
 
-**Frosting is not one of the questions.** It looks like it should be — COSMIC frosts panel menus and
-not dock ones — but the applet must not decide it. The runtime keeps `Theme::transparent` as
-`blur_enabled && core.frosted(theme)`, where `frosted` reads the theme's `frosted_applets` and
-`blur_enabled` is set from an `Action::BlurEnabled` the **compositor** sends per surface. That is
-exactly where the dock-versus-panel difference comes from. So `style::surface` reads
-`background(theme.transparent)` and nothing else — the same token `core.applet.popup_container` uses,
-which is what makes the popup identical to `cosmic-app-list`'s. Deciding it here instead was tried,
-and it got the dock wrong.
+**Frosting is not one of the questions, and it is not a dock-versus-panel difference either.** The
+runtime keeps `Theme::transparent` as `blur_enabled && core.frosted(theme)`, where `frosted` reads
+the theme's `frosted_applets` and `blur_enabled` is set from an `Action::BlurEnabled` the
+**compositor** sends. One `cosmic-panel` process serves every space, and it offers the blur protocol
+to all of its applet clients or to none of them — it gates the global on whether the host offers it
+to the panel, not on which space the applet sits in. So both faces of this applet are frosted or
+neither is, and the applet only has to read `background(theme.transparent)`, the same token
+`core.applet.popup_container` uses. Deciding it here instead was tried, and it got the dock wrong.
 
 ## Left click acts, right click offers
 
@@ -163,28 +166,45 @@ The tooltip naming the applet is wrapped on **only** when `panel_type == Dock`. 
 icon it holds on hover and an applet gets none of that for free; a panel names nothing, so a tooltip
 there would be noise.
 
-## The popup borrows whichever menu it sits beside
+## One translucent layer, or the frosting is gone
 
-COSMIC has **two** menu idioms, and which one is right depends on the host:
+COSMIC has **two** menu idioms. The **dock**'s app list fills each row with its own block of colour
+— `button::custom` with `Button::MenuItem`, which resolves to `background(transparent).component` —
+and **panel** applets do not: `cosmic::applet::menu_button` uses `Button::AppletMenu`, whose resting
+fill is `text_button.base`, `#00000000`.
 
-- The **dock**'s app list fills each row with its own block of colour: `button::custom` with
-  `Button::MenuItem`, `menu_control_padding()`, full width, height `20 + 2 * space_xxs`.
-  `MenuItem` resolves to `background(transparent).component`.
-- **Panel** applets do not: `cosmic::applet::menu_button` uses `Button::AppletMenu`, which is
-  near-transparent and lets the popup's own `background(transparent).base` show through.
+This applet takes the panel's, on both hosts, because the dock's cannot be frosted. The fills carry
+the same alpha as the popup's own surface — 1.0 opaque, 0.761 frosted — so `MenuItem` over
+`popup_container` is **two** translucent layers, and what reaches the eye from behind the popup is
+`0.239 * 0.239`: **5.8%**, against 23.9% for the single layer a panel row leaves. The row colour is
+nearly the whole popup, so the whole menu reads as if frosted glass were switched off, which is
+exactly how it was reported. `AppletMenu` adds no layer of its own and the popup's one surface
+frosts, so both faces now show the blur the theme asked for.
 
-Both backgrounds carry the same alpha — measured, not assumed: 1.0 opaque, 0.761 when the theme is
-frosted. The two idioms differ in *colour*, not in translucency, so using the dock's on a panel (or
-the reverse) reads as the wrong material rather than as a blur problem. Using one everywhere was
-tried and was wrong on whichever host it was not taken from, in both directions.
+Taking the dock's idiom was tried, for one release, to make the menu look like the app list's beside
+it. `cosmic-app-list` has the same two layers and the same near-opaque result; matching it is not
+worth losing the effect the theme enables.
 
-`row()` picks the class from the host and `question()` follows it: on a dock the question sits on a
-`style::card` filled with the same `component` colour as the rows, on a panel it sits plain on the
-popup's own surface. Whichever face the popup is showing, it is made of what its neighbours are made
-of.
+What stays per host is the row's **height** — see above — and nothing else. `question()` is one face
+of the same popup and it also sits plain on that single surface: a card of its own behind it is a
+second layer with the same arithmetic.
 
-`AppletMenu` discards the `on_disabled` colour `Catalog::disabled` works out, so the panel branch
-dims its own label; `MenuItem` takes its colours from `color()` and dims itself.
+`AppletMenu` is taken for its colours and **not** for its corners: it pins `radius_0`, so its hover
+fill is a rectangle and the first and last rows spill past the rounded border `popup_container` drew
+at `radius_m`. `style::menu_row` is that class with the corners put back, and it is
+`cosmic-status-hub`'s `menu_view` idiom part for part — `Edges`, `inner_radius`, `follow_surface`,
+the same `Catalog as _` delegation — because the two applets sit on the same kind of surface and a
+second answer to one question is a second thing to keep right.
+
+**Only the corners that touch the surface are rounded**, and they take the surface's own
+`radius_m` **less the 1 px border they sit inside**: the first row at the top, the last row at the
+bottom, every other corner square so rows meet the divider flush. A uniform radius was tried and is
+wrong in both directions — `radius_s` on all four corners still spills under the default `Round`
+theme, where the surface is twice as round, and `radius_m` on all four rounds the inner corners that
+nothing is curving around. `inner_radius` clamps at zero, so a square theme stays square.
+
+`AppletMenu` discards the `on_disabled` colour `Catalog::disabled` works out, so a disabled row dims
+its own label through `style::dimmed_text`, on either host.
 
 The rest comes from `cosmic-app-list/src/app.rs` unchanged:
 `core.applet.popup_container(container(content).padding(1))` paints the surface — hand-rolling an
@@ -202,7 +222,7 @@ interface and no command-line flag to raise its own dialog, so the question has 
 `widget::dialog()` is the obvious way to ask it and is the wrong one. It paints its own card on the
 **primary** layer, with a border and a drop shadow of its own, while the popup's surface is the
 **background** layer. Side by side the two read as different windows, and the card covers the
-frosted background the panel gives the popup.
+frosted background the popup already has.
 
 So `question()` reproduces the dialog's *contents* — `title3` heading, `space_xxs` gap, body text, a
 right-aligned `suggested`/`standard` pair, the `space_l` and `space_m` spacing scale — and nothing

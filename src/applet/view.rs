@@ -11,7 +11,7 @@ pub fn popup(app: &Trash) -> Element<'_, Message> {
     let dock = app.on_a_dock();
 
     let body: Element<'_, Message> = if app.asking() {
-        question(dock)
+        question()
     } else {
         menu(app, dock)
     };
@@ -30,9 +30,9 @@ pub fn popup(app: &Trash) -> Element<'_, Message> {
 fn menu(app: &Trash, dock: bool) -> Element<'_, Message> {
     let emptyable = !app.status().is_empty();
 
-    let open = row(fl!("open-trash"), true, dock).on_press(Message::OpenTrash);
+    let open = row(fl!("open-trash"), true, dock, style::Edges::TOP).on_press(Message::OpenTrash);
 
-    let empty = row(fl!("empty-trash"), emptyable, dock)
+    let empty = row(fl!("empty-trash"), emptyable, dock, style::Edges::BOTTOM)
         .on_press_maybe(emptyable.then_some(Message::ConfirmEmpty(true)));
 
     widget::column::with_children(vec![
@@ -43,26 +43,29 @@ fn menu(app: &Trash, dock: bool) -> Element<'_, Message> {
     .into()
 }
 
-fn row<'a>(label: String, enabled: bool, dock: bool) -> widget::Button<'a, Message> {
+fn row<'a>(
+    label: String,
+    enabled: bool,
+    dock: bool,
+    edges: style::Edges,
+) -> widget::Button<'a, Message> {
     let mut label =
         widget::text::body(label).ellipsize(Ellipsize::End(EllipsizeHeightLimit::Lines(1)));
 
-    if !enabled && !dock {
+    if !enabled {
         label = label.class(style::dimmed_text());
     }
 
+    let row = applet::menu_button(label).class(style::menu_row(edges));
+
     if dock {
-        widget::button::custom(label)
-            .height(20 + 2 * cosmic::theme::spacing().space_xxs)
-            .class(cosmic::theme::Button::MenuItem)
-            .padding(applet::menu_control_padding())
-            .width(Length::Fill)
+        row.height(20 + 2 * cosmic::theme::spacing().space_xxs)
     } else {
-        applet::menu_button(label)
+        row
     }
 }
 
-fn question<'a>(dock: bool) -> Element<'a, Message> {
+fn question<'a>() -> Element<'a, Message> {
     let spacing = cosmic::theme::spacing();
 
     let words = widget::column::with_children(vec![
@@ -84,15 +87,10 @@ fn question<'a>(dock: bool) -> Element<'a, Message> {
     ])
     .spacing(spacing.space_xxs);
 
-    let card = widget::container(
+    widget::container(
         widget::column::with_children(vec![words.into(), answers.into()]).spacing(spacing.space_l),
     )
     .padding(spacing.space_m)
-    .width(Length::Fill);
-
-    if dock {
-        card.style(style::card).into()
-    } else {
-        card.into()
-    }
+    .width(Length::Fill)
+    .into()
 }
